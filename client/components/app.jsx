@@ -1,25 +1,36 @@
 import React from 'react';
-
+import Title from './title';
+import ProductBoard from './product';
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: null,
-      isLoading: true
+      products: []
     };
   }
 
   componentDidMount() {
-    fetch('/api/health-check')
-      .then(res => res.json())
-      .then(data => this.setState({ message: data.message || data.error }))
-      .catch(err => this.setState({ message: err.message }))
-      .finally(() => this.setState({ isLoading: false }));
+    this.getData();
+  }
+
+  getData() {
+    const init = {
+      method: 'GET'
+    };
+    fetch('/api/products', init)
+      .then(response => response.json())
+      .then(data => {
+        this.setState(state => ({ products: data }));
+      })
+    ;
   }
 
   render() {
-    return this.state.isLoading
-      ? <h1>Testing connections...</h1>
-      : <h1>{ this.state.message }</h1>;
+    return (
+      <div className="main-container">
+        <Title/>
+        <ProductBoard productData={this.state.products}/>
+      </div>
+    );
   }
 }

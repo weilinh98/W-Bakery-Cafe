@@ -1,0 +1,21 @@
+.main-container{
+  display: flex;
+  flex-wrap: wrap;
+}
+.title{
+  width: 100%;
+}
+
+.products-container{
+  background-color: snow;
+}
+
+.row{
+justify-content: center;
+}
+
+img{
+  width: 50%;
+  height: 50%;
+  object-fit: contain;
+}
