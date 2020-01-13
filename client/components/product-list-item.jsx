@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Product(props) {
+function ProductListItem(props) {
   const data = props.productInfo;
   const price = `$${(data.price / 100).toFixed(2)}`;
   return (
@@ -15,16 +15,4 @@ function Product(props) {
   );
 }
 
-function ProductBoard(props) {
-  const data = props.productData;
-  const products = data.map(product => (<Product key={product.productId} productInfo={product}/>));
-  return (
-    <div className="products-container">
-      <div className="row">
-        {products}
-      </div>
-    </div>
-  );
-}
-
-export default ProductBoard;
+export default ProductListItem;
