@@ -1,21 +1,43 @@
 .main-container{
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 .title{
   width: 100%;
+  text-align: center;
 }
 
 .products-container{
   background-color: snow;
 }
 
+.products-container > .row > .card{
+  cursor: pointer;
+}
+
+.product-detail-container > .card > .card-header{
+  cursor: pointer;
+}
+
 .row{
 justify-content: center;
 }
 
-img{
-  width: 50%;
+img.card-img-top{
   height: 50%;
   object-fit: contain;
+}
+
+.product-detail-container{
+  width: 90%;
+}
+
+.short-description > .price{
+  color: rgb(114, 112, 109);
+}
+
+.product-detail-container img{
+  width: 50%;
 }

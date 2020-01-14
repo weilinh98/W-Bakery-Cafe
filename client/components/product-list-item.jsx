@@ -4,7 +4,7 @@ function ProductListItem(props) {
   const data = props.productInfo;
   const price = `$${(data.price / 100).toFixed(2)}`;
   return (
-    <div className="card col-md-3 mr-5 mb-5">
+    <div className="card col-md-3 mr-5 mb-5" onClick={() => { props.setView('details', { productId: data.productId }); }}>
       <img src={data.image} className="card-img-top"/>
       <div className="card-body" >
         <h5 className="card-title">{data.name}</h5>
