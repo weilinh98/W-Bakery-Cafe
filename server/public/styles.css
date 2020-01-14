@@ -37,3 +37,7 @@ img.card-img-top{
 .short-description > .price{
   color: rgb(114, 112, 109);
 }
+
+.product-detail-container img{
+  width: 50%;
+}
