@@ -46,7 +46,7 @@ app.get('/api/products/:productId', (req, res, next) => {
   db.query(sql, params)
     .then(response => {
       if (response.rows.length === 0) {
-        next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
+        next(new ClientError(`cannot find the matching product with id ${id}`, 404));
       } else {
         res.json(response.rows[0]);
       }
