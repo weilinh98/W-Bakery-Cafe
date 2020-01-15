@@ -89,14 +89,14 @@ app.post('/api/cart', (req, res, next) => {
     const params = [productId];
     db.query(sql, params)
       .then(response => {
-        if (req.session.cartId) {
+        if (!response.rows.length) {
+          throw new ClientError(`Cannot Find Product with productId ${productId}`, 400);
+        } else if (req.session.cartId) {
           const cartWithPrice = {
             price: response.rows[0].price,
             newCartId: req.session.cartId
           };
           return cartWithPrice;
-        } else if (!response.rows.length) {
-          next(new ClientError(`Cannot Find Product with productId ${productId}`, 400));
         } else {
           const sql = `
             insert into "carts" ("cartId", "createdAt")
@@ -135,9 +135,9 @@ app.post('/api/cart', (req, res, next) => {
                 "p"."shortDescription"
         from "cartItems" as "c"
         join "products" as "p" using ("productId")
-        where "c"."cartItemId" = $1`;
+        where "c"."cartItemId" = $3`;
         const params = [cartItemId];
-        db.query(sql, params)
+        return db.query(sql, params)
           .then(response => {
             const cartProduct = response.rows[0];
             res.status(200).json(cartProduct);
