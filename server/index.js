@@ -135,7 +135,7 @@ app.post('/api/cart', (req, res, next) => {
                 "p"."shortDescription"
         from "cartItems" as "c"
         join "products" as "p" using ("productId")
-        where "c"."cartItemId" = $3`;
+        where "c"."cartItemId" = $1`;
         const params = [cartItemId];
         return db.query(sql, params)
           .then(response => {
@@ -144,6 +144,32 @@ app.post('/api/cart', (req, res, next) => {
           });
       })
       .catch(err => { next(err); });
+  }
+});
+
+app.post('/api/orders', (req, res, next) => {
+  if (!req.session.cartId) {
+    next(new ClientError('Cannot find your cart to place order', 400));
+  } else {
+    const info = req.body;
+    if (info.name && info.creditCard && info.shippingAddress) {
+      const sql = `
+        insert into "orders" ("name", "cartId", "creditCard", "shippingAddress")
+        values($1, $2, $3, $4)
+          returning *
+          `;
+      const params = [info.name, req.session.cartId, info.creditCard, info.shippingAddress];
+      db.query(sql, params)
+        .then(response => {
+          if (response.rows.length !== 0) {
+            delete req.session.cartId;
+            res.json(response.rows[0]);
+          }
+        })
+        .catch(err => { next(err); });
+    } else {
+      next(new ClientError('Please Enter Full Name, Credit Card and Shipping Address to Proceed', 400));
+    }
   }
 });
 
