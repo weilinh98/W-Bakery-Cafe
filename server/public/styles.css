@@ -6,8 +6,27 @@
 }
 .title{
   width: 100%;
-  text-align: center;
+  display: flex;
 }
+
+.store-name{
+  width: 90%;
+  font-size: 1.5rem;
+}
+
+.shopping-cart{
+  width: 10%;
+  display: flex;
+  cursor: pointer;
+}
+.shopping-cart > i{
+  width: 40%;
+  font-size: 150%;
+}
+.shopping-cart > p{
+  width: 60%;
+}
+
 
 .products-container{
   background-color: snow;
