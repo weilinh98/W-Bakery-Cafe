@@ -35,15 +35,15 @@ class CheckoutForm extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label htmlFor="inputEmail4">Full Name</label>
-            <input required type="text" className="form-control" name="name" onChange={this.handleChange} value={this.state.name}/>
+            <textarea required type="text" className="form-control" name="name" onChange={this.handleChange} value={this.state.name}/>
           </div>
           <div className="form-group">
             <label htmlFor="inputAddress">Credit Card Number</label>
-            <input required type="text" className="form-control" name="creditCardNumber" onChange={this.handleChange} value={this.state.creditCardNumber}/>
+            <textarea required type="text" className="form-control" name="creditCardNumber" onChange={this.handleChange} value={this.state.creditCardNumber}/>
           </div>
           <div className="form-group">
             <label htmlFor="inputAddress2">Shipping Address</label>
-            <input required type="text" className="form-control" name="shippingAddress" onChange={this.handleChange} value={this.state.shippingAddress}/>
+            <textarea required type="text" className="form-control" name="shippingAddress" onChange={this.handleChange} value={this.state.shippingAddress}/>
           </div>
           <div className="form-footer row">
             <p className="col-10" onClick={() => { this.props.setView('catalog', {}); }}>{'< Continue Shopping'} </p>
