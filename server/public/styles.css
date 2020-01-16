@@ -60,3 +60,36 @@ img.card-img-top{
 .product-detail-container img{
   width: 50%;
 }
+
+.cart-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+}
+
+.cart-title{
+ width: 80%;
+}
+
+.cart-title :nth-child(1){
+  font-size: 0.8rem;
+  font-style: italic;
+  cursor: pointer;
+  color: grey;
+}
+
+.cart-title :nth-child(2){
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.cart-container > .card{
+  margin-bottom: 5%;
+  width: 80%;
+}
+
+.cart-container .product-image > img{
+  width: 100%;
+  object-fit: contain;
+}
