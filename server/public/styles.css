@@ -73,14 +73,14 @@ img.card-img-top{
  width: 80%;
 }
 
-.cart-title :nth-child(1){
+.cart-title :nth-child(1), .form-title :nth-child(2), .form-footer :nth-child(1){
   font-size: 0.8rem;
   font-style: italic;
   cursor: pointer;
   color: grey;
 }
 
-.cart-title :nth-child(2){
+.cart-title :nth-child(2), .form-title :nth-child(1){
   font-size: 1.5rem;
   font-weight: bold;
 }
@@ -92,4 +92,15 @@ img.card-img-top{
 .cart-container .product-image > img{
   width: 100%;
   object-fit: contain;
+}
+
+.checkout-container{
+  display: flex;
+  width: 70%
+}
+
+.form-container{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
 }

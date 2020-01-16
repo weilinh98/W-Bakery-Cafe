@@ -152,13 +152,13 @@ app.post('/api/orders', (req, res, next) => {
     next(new ClientError('Cannot find your cart to place order', 400));
   } else {
     const info = req.body;
-    if (info.name && info.creditCard && info.shippingAddress) {
+    if (info.name && info.creditCardNumber && info.shippingAddress) {
       const sql = `
         insert into "orders" ("name", "cartId", "creditCard", "shippingAddress")
         values($1, $2, $3, $4)
           returning *
           `;
-      const params = [info.name, req.session.cartId, info.creditCard, info.shippingAddress];
+      const params = [info.name, req.session.cartId, info.creditCardNumber, info.shippingAddress];
       db.query(sql, params)
         .then(response => {
           if (response.rows.length !== 0) {
