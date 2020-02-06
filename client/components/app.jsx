@@ -1,4 +1,5 @@
 import React from 'react';
+import AppContext from '../lib/context';
 import Title from './title';
 import Carousel from './carousel';
 import ProductList from './product-list';
@@ -71,9 +72,16 @@ export default class App extends React.Component {
   }
 
   render() {
+
+    const context = {
+      cart: this.state.cart
+    };
+
     let productDisplay = null;
+    let carousel = null;
     if (this.state.view.name === 'catalog') {
       productDisplay = <ProductList setView={this.setView} />;
+      carousel = <Carousel/>;
     } else if (this.state.view.name === 'details') {
       productDisplay = <ProductDetails productId={this.state.view.params.productId} setView={this.setView} addToCart= {this.addToCart}/>;
     } else if (this.state.view.name === 'cart') {
@@ -82,11 +90,13 @@ export default class App extends React.Component {
       productDisplay = <CheckoutForm setView={this.setView} placeOrder={this.placeOrder}/>;
     }
     return (
-      <div className="donuts-sales-container">
-        <Title cartNum={this.state.cart.length} setView={this.setView}/>
-        <Carousel/>
-        {productDisplay}
-      </div>
+      <AppContext.Provider value= {context}>
+        <div className="donuts-sales-container">
+          <Title cartNum={this.state.cart.length} setView={this.setView}/>
+          {carousel}
+          {productDisplay}
+        </div>
+      </AppContext.Provider>
     );
   }
 
