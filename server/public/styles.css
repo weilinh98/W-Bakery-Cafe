@@ -113,8 +113,13 @@
   background-color: snow;
 }
 
+.products-container > .row{
+  justify-content: center;
+}
+
 .products-container > .row > .card{
   cursor: pointer;
+  height: 70vh;
 }
 
 .product-detail-container > .card > .card-header{
@@ -122,7 +127,7 @@
 }
 
 img.card-img-top{
-  height: 30%;
+  height: 40%;
   object-fit: contain;
 }
 
@@ -171,6 +176,13 @@ img.card-img-top{
   object-fit: contain;
 }
 
+.card-title{
+  font-size: 1.3rem;
+}
+
+.card-subtitle{
+  font-size: 1.3rem;
+}
 .checkout-container{
   display: flex;
   width: 70%
