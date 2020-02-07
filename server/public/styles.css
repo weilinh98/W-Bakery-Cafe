@@ -1,5 +1,7 @@
-.body{
+body{
   margin: 0;
+  background-image: url("https://66.media.tumblr.com/155fff0a8c45f385c6861c71e446536f/tumblr_pjmtn7b19j1vbdodoo1_1280.gif");
+  background-size: cover;
 }
 .donuts-sales-container{
   display: flex;
@@ -8,6 +10,7 @@
   justify-content: center;
   min-height: 100vh;
   flex-direction: column;
+  position: relative;
 }
 
 .title{
@@ -15,7 +18,8 @@
   height: 20vh;
   display: flex;
   background-image: url("https://laurenconrad.com/wp-content/uploads/2016/02/flowers-desktop-1.jpg");
-  position: flxed;
+  position: fixed;
+  top: 0;
 }
 
 .glow {
@@ -37,9 +41,9 @@
 }
 
 .store-name{
-  width: 90%;
+  width: 100%;
   font-size: 2.5rem;
-  font-family: 'Caveat Brush', cursive;
+  font-family: 'Parisienne', cursive;
 }
 
 .shopping-cart{
@@ -47,16 +51,14 @@
   display: flex;
   cursor: pointer;
 }
-.shopping-cart > img{
-  width: 57%;
-  height: 64%
+.cart-logo{
+  height: 10vh;
 }
 .shopping-cart > p{
-  width: 60%;
-  color:#d4206b;
+  color:#e77ab1;
   font-weight: bold;
-  font-size: 1.5rem;
-  font-family: 'Indie Flower', cursive;
+  font-size: 2rem;
+  font-family: 'Cookie', cursive;
 }
 
 .carousel{
@@ -67,8 +69,15 @@
   box-shadow: 0px 0px 8px #68bae9;
 }
 
+.carousel-item *{
+  height: 65vh;
+  border-radius: 8px;
+}
+
 .center-caption{
-  transform: translate(50%, 50%);
+  position: absolute;
+  top: 120px;
+  left: 400px;
 }
 
 .center-caption > p{
@@ -76,10 +85,7 @@
   font-size: 2rem;
   text-shadow: 1px 1px 2px rgb(223, 60, 160), 0 0 25px rgb(159, 228, 240), 0 0 5px rgb(75, 224, 199);
 }
-.carousel-item *{
-  height: 65vh;
-  border-radius: 8px;
-}
+
 .slide-1{
   background-image: url("images/carousel/carousel-1.jpeg");
   background-size: cover;
@@ -110,7 +116,10 @@
 
 .products-container{
   margin-top: 5vh;
-  background-color: snow;
+  background: rgba(241, 130, 186, 0.3);
+  box-shadow: 0 20px 50px rgb(204, 60, 192);
+  border: 2px solid #e965d7;
+  border-radius: 3px;
 }
 
 .products-container > .row{
@@ -124,6 +133,10 @@
 
 .product-detail-container > .card > .card-header{
   cursor: pointer;
+}
+
+.card-body{
+  padding: 0;
 }
 
 img.card-img-top{
@@ -178,10 +191,16 @@ img.card-img-top{
 
 .card-title{
   font-size: 1.3rem;
+  font-family: 'Cookie', cursive;
 }
 
 .card-subtitle{
   font-size: 1.3rem;
+  font-family: 'Lobster Two', cursive;
+}
+
+.card-text{
+  font-family: 'Shadows Into Light Two', cursive;
 }
 .checkout-container{
   display: flex;

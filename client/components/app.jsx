@@ -1,7 +1,9 @@
 import React from 'react';
 import AppContext from '../lib/context';
-import Title from './title';
-import Carousel from './carousel';
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
@@ -10,19 +12,10 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: {
-        name: 'catalog',
-        params: {}
-      },
       cart: []
     };
-    this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
-  }
-
-  setView(name, params) {
-    this.setState(state => ({ view: { name, params } }));
   }
 
   componentDidMount() {
@@ -74,27 +67,19 @@ export default class App extends React.Component {
   render() {
 
     const context = {
-      cart: this.state.cart
+      cart: this.state.cart,
+      addToCart: this.addToCart,
+      placeOrder: this.placeOrder
     };
-
-    let productDisplay = null;
-    let carousel = null;
-    if (this.state.view.name === 'catalog') {
-      productDisplay = <ProductList setView={this.setView} />;
-      carousel = <Carousel/>;
-    } else if (this.state.view.name === 'details') {
-      productDisplay = <ProductDetails productId={this.state.view.params.productId} setView={this.setView} addToCart= {this.addToCart}/>;
-    } else if (this.state.view.name === 'cart') {
-      productDisplay = <CartSummary cart={this.state.cart} setView={this.setView}/>;
-    } else if (this.state.view.name === 'checkout') {
-      productDisplay = <CheckoutForm setView={this.setView} placeOrder={this.placeOrder}/>;
-    }
     return (
-      <AppContext.Provider value= {context}>
+      <AppContext.Provider value={context}>
         <div className="donuts-sales-container">
-          <Title cartNum={this.state.cart.length} setView={this.setView}/>
-          {carousel}
-          {productDisplay}
+          <Router>
+            <Route exact path="/" component={ProductList} />
+            <Route path="/product-detail/:productid" component={ProductDetails} />
+            <Route exact path="/cart" component={CartSummary} />
+            <Route exact path="/checkout" component={CheckoutForm} />
+          </Router>
         </div>
       </AppContext.Provider>
     );

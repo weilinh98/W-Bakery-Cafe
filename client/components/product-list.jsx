@@ -1,5 +1,7 @@
 import React from 'react';
+import Carousel from './carousel';
 import ProductListItem from './product-list-item';
+import Title from './title';
 
 class ProductList extends React.Component {
   constructor(props) {
@@ -27,13 +29,15 @@ class ProductList extends React.Component {
 
   render() {
     const data = this.state.products;
-    const products = data.map(product => (<ProductListItem key={product.productId} productInfo={product} setView={this.props.setView}/>));
+    const products = data.map(product => (<ProductListItem key={product.productId} productInfo={product} push={this.props.history.push}/>));
     return (
-      <div className="products-container container">
-        <div className="row">
-          {products}
+      <React.Fragment>
+        <Title />
+        <Carousel />
+        <div className="products-container container">
+          <div className="row">{products}</div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
