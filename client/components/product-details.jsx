@@ -1,8 +1,6 @@
 import React from 'react';
 import AppContext from '../lib/context';
 import Title from './title';
-import { Link } from 'react-router-dom';
-import ProductList from './product-list';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -37,9 +35,7 @@ class ProductDetails extends React.Component {
           <Title />
           <div className="product-detail-container">
             <div className="card">
-              <Link to={'/'}>
-                <div className="card-header">{'< Back to Catalog'}</div>
-              </Link>
+              <div className="card-header back-to-catalog" onClick={() => { this.props.history.push('/'); }}>{'< Back to Catalog'}</div>
               <div className="card-body">
                 <div className="row">
                   <div className="product-image col">
@@ -52,9 +48,9 @@ class ProductDetails extends React.Component {
                     <p className="description">{product.shortDescription}</p>
                     <button
                       type="button"
-                      className="btn btn-primary"
+                      className="add-cart-button hvr-pulse"
                       onClick={() => {
-                        this.context.addToCart(this.props.productId);
+                        this.context.addToCart(this.props.match.params.productid);
                       }}
                     >
                       Add to Cart

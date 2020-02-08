@@ -34,13 +34,13 @@ export default class App extends React.Component {
   }
 
   addToCart(productId) {
-    const reqBody = { productId };
+    const reqBody = { productId: parseInt(productId) };
     const init = {
       method: 'POST',
       body: JSON.stringify(reqBody),
       headers: { 'Content-type': 'application/json' }
     };
-    fetch('api/cart', init)
+    fetch('http://localhost:3000/api/cart', init)
       .then(response => response.json())
       .then(data => {
         const cartCopy = [...this.state.cart];
