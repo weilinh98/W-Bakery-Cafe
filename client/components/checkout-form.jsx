@@ -2,6 +2,7 @@ import React from 'react';
 import AppContext from '../lib/context';
 import Title from './title';
 import Swal from 'sweetalert2';
+
 class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
@@ -94,3 +95,4 @@ class CheckoutForm extends React.Component {
 
 export default CheckoutForm;
 CheckoutForm.contextType = AppContext;
+

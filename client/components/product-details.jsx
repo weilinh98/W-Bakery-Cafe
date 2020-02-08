@@ -72,3 +72,4 @@ class ProductDetails extends React.Component {
 
 export default ProductDetails;
 ProductDetails.contextType = AppContext;
+

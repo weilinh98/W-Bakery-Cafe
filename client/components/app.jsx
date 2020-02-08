@@ -5,10 +5,12 @@ import {
   Route
 } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import Title from './title';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -18,7 +20,7 @@ export default class App extends React.Component {
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
   }
-
+  
   componentDidMount() {
     this.getCartItems();
   }
