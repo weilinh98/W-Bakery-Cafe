@@ -10,7 +10,6 @@ function CartSummaryItem(props) {
         <div className="product-image col-5 mr-1">
           <img src={item.image}/>
         </div>
-
         <div className="description col-6">
           <h4 className="card-title">{item.name}</h4>
           <h5 className="price">{price}</h5>
