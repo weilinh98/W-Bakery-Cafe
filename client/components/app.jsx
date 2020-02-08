@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
@@ -59,7 +60,9 @@ export default class App extends React.Component {
       .then(response => response.json())
       .then(data => {
         if (!data.error) {
-          this.setState(state => ({ view: { name: 'catalog', params: {} }, cart: [] }));
+          this.setState({ cart: [] });
+        } else {
+          Swal.fire(data.error);
         }
       });
   }

@@ -134,6 +134,7 @@ body{
 
 .product-detail-container{
   margin-top: 20vh;
+  width: 90%;
 }
 
 .product-detail-container > .card > .card-header{
@@ -227,7 +228,7 @@ img.card-img-top{
 .form-container{
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 95%;
   margin-top: 25vh;
 }
 
@@ -266,6 +267,9 @@ img.card-img-top{
   color: white;
 }
 
+.banned{
+  display: none;
+}
 
 @media only screen and (max-width: 832px) {
   .store-name{
@@ -273,6 +277,15 @@ img.card-img-top{
   }
 }
 
+@media only screen and (max-width: 600px) {
+  .donuts-sales-container {
+   display: none;
+  }
+  .banned{
+    display: block;
+  }
+
+}
 /* iPhone 6/7/8 portrait */
 @media only screen
   and (min-device-width: 375px)
@@ -289,7 +302,7 @@ img.card-img-top{
     height: 5vh;
     }
     .form-container{
-      margin-top: 7vh;
+      margin-top: 17vh;
     }
     .cart-container{
       margin-top: 0;
@@ -305,6 +318,18 @@ img.card-img-top{
     border-radius: 4px;
     width: 50vh;
     }
+    .donuts-sales-container {
+    display: block;
+    }
+    .banned{
+      display: none;
+    }
+    .cart-container img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 15vh;
+    margin-left: 7px;
+}
 }
 
 /* iPhone 6/7/8 landscape */

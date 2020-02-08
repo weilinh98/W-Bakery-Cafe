@@ -153,22 +153,25 @@ app.post('/api/orders', (req, res, next) => {
   } else {
     const info = req.body;
     if (info.name && info.creditCardNumber && info.shippingAddress) {
-      const sql = `
+
+      if (isNaN(info.creditCardNumber)) {
+        next(new ClientError('Please enter valid credit card number', 400));
+      } else {
+        const sql = `
         insert into "orders" ("name", "cartId", "creditCard", "shippingAddress")
         values($1, $2, $3, $4)
           returning *
           `;
-      const params = [info.name, req.session.cartId, info.creditCardNumber, info.shippingAddress];
-      db.query(sql, params)
-        .then(response => {
-          if (response.rows.length !== 0) {
-            delete req.session.cartId;
-            res.json(response.rows[0]);
-          }
-        })
-        .catch(err => { next(err); });
-    } else {
-      next(new ClientError('Please Enter Full Name, Credit Card and Shipping Address to Proceed', 400));
+        const params = [info.name, req.session.cartId, info.creditCardNumber, info.shippingAddress];
+        db.query(sql, params)
+          .then(response => {
+            if (response.rows.length !== 0) {
+              delete req.session.cartId;
+              res.json(response.rows[0]);
+            }
+          })
+          .catch(err => { next(err); });
+      }
     }
   }
 });

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import AppContext from '../lib/context';
 import Title from './title';
+import Swal from 'sweetalert2';
 class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
@@ -22,17 +22,27 @@ class CheckoutForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.context.placeOrder(this.state);
+    if (!this.context.cart.length) {
+      Swal.fire("You can't check out with nothing in your cart! ");
+    } else {
+      this.context.placeOrder(this.state);
+      this.props.history.push('/');
+    }
   }
 
   render() {
+    const cartItems = this.context.cart;
+    let total = 0;
+    cartItems.forEach(item => {
+      total += item.price;
+    });
     return (
       <React.Fragment>
         <Title />
         <div className="form-container">
           <div className="form-title mb-4">
-            <p>My Cart</p>
-            <p>Item Total: $84.28</p>
+            <p>Enter Your Info Below</p>
+            <p>{`Item Total: $${(total / 100).toFixed(2)}`}</p>
           </div>
 
           <form onSubmit={this.handleSubmit}>
@@ -70,8 +80,8 @@ class CheckoutForm extends React.Component {
               />
             </div>
             <div className="form-footer row">
-              <p className="col-10" onClick={() => { this.props.history.push('/') ;}}>{'< Continue Shopping'} </p>
-              <button type="submit" className="check-out-button">
+              <p className="col-8" onClick={() => { this.props.history.push('/'); }}>{'< Continue Shopping'} </p>
+              <button type="submit" className="check-out-button col4">
                 Place Order
               </button>
             </div>
