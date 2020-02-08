@@ -26,4 +26,4 @@ Try this application live at https://w-bakery-cafe.weilin.dev
  - User can place an order
 
 ## Preview
-![WBakeryCafe](/images/w-bakery-cafe.gif)
+![WBakeryCafe](server/public/images/w-bakery-cafe.gif)
