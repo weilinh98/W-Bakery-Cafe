@@ -177,6 +177,28 @@ app.post('/api/orders', (req, res, next) => {
   }
 });
 
+app.delete('/api/cart', (req, res, next) => {
+  const productId = parseInt(req.body.productId);
+  const cartId = req.session.cartId;
+  if (Number.isInteger(productId) && productId > 0) {
+    if (cartId) {
+      next(new ClientError("Something went wrong, can't find your cart to process the delete", 400));
+    } else {
+      const sql = `
+      select "price"
+        from "products"
+        where "productId" = $1`;
+      const params = [productId];
+      db.query(sql, params)
+        .then(response => {
+          if (!response.rows.length) {
+            throw new ClientError(`Cannot Find Product with productId ${productId}`, 400);
+          }
+        });
+    }
+
+  }
+});
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
