@@ -179,9 +179,9 @@ app.post('/api/orders', (req, res, next) => {
 
 app.delete('/api/cart', (req, res, next) => {
   const productId = parseInt(req.body.productId);
-  const cartId = req.session.cartId;
+  const cartId = 1;
   if (Number.isInteger(productId) && productId > 0) {
-    if (cartId) {
+    if (!cartId) {
       next(new ClientError("Something went wrong, can't find your cart to process the delete", 400));
     } else {
       const sql = `
@@ -193,8 +193,11 @@ app.delete('/api/cart', (req, res, next) => {
         .then(response => {
           if (!response.rows.length) {
             throw new ClientError(`Cannot Find Product with productId ${productId}`, 400);
+          } else {
+            const price = response.rows[0].price;
           }
-        });
+        })
+        .catch(err => { next(err); });
     }
 
   }
