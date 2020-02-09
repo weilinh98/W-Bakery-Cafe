@@ -178,8 +178,8 @@ app.post('/api/orders', (req, res, next) => {
 });
 
 app.delete('/api/cart', (req, res, next) => {
-  const productId = parseInt(req.body.productId);
-  const cartId = 1;
+  const { productId, cartItemId } = req.body.deleteInformation;
+  const cartId = req.session.cartId;
   if (Number.isInteger(productId) && productId > 0) {
     if (!cartId) {
       next(new ClientError("Something went wrong, can't find your cart to process the delete", 400));
@@ -194,7 +194,20 @@ app.delete('/api/cart', (req, res, next) => {
           if (!response.rows.length) {
             throw new ClientError(`Cannot Find Product with productId ${productId}`, 400);
           } else {
-            const price = response.rows[0].price;
+            const sql = `
+                delete
+                  from "cartItems"
+                  where "cartId" = $1 and "cartItemId" = $2 and "productId" = $3
+                  returning *`;
+            const params = [cartId, cartItemId, productId];
+            return db.query(sql, params)
+              .then(response => {
+                if (response.rows.length === 0) {
+                  throw new ClientError('Cannot find matching cartItem to delete, cartItem with supplied information are not  in the database', 404);
+                } else {
+                  res.sendStatus(204);
+                }
+              });
           }
         })
         .catch(err => { next(err); });
