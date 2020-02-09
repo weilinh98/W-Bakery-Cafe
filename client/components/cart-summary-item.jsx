@@ -15,7 +15,6 @@ function CartSummaryItem(props) {
           <h5 className="price">{price}</h5>
           <p className="short-description">{item.shortDescription}</p>
         </div>
-
       </div>
     </div>
   );
