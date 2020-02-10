@@ -42,7 +42,7 @@ class CheckoutForm extends React.Component {
         <Title />
         <div className="form-container">
           <div className="form-title mb-4">
-            <p>Enter Your Info Below</p>
+            <p>{"Enter Your Info Below (Please don't enter any personal information)"}</p>
             <p>{`Item Total: $${(total / 100).toFixed(2)}`}</p>
           </div>
 
@@ -95,4 +95,3 @@ class CheckoutForm extends React.Component {
 
 export default CheckoutForm;
 CheckoutForm.contextType = AppContext;
-
