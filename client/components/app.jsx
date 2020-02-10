@@ -5,7 +5,6 @@ import {
   Route
 } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import Title from './title';
 import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
@@ -19,8 +18,9 @@ export default class App extends React.Component {
     };
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
+    this.updateCart = this.updateCart.bind(this);
   }
-  
+
   componentDidMount() {
     this.getCartItems();
   }
@@ -69,12 +69,17 @@ export default class App extends React.Component {
       });
   }
 
+  updateCart(newCart) {
+    this.setState({ cart: newCart });
+  }
+
   render() {
 
     const context = {
       cart: this.state.cart,
       addToCart: this.addToCart,
-      placeOrder: this.placeOrder
+      placeOrder: this.placeOrder,
+      updateCart: this.updateCart
     };
     return (
       <AppContext.Provider value={context}>
