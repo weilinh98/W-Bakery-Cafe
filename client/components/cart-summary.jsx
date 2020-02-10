@@ -7,16 +7,34 @@ import CartSummaryItem from './cart-summary-item';
 class CartSummary extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      temp: null
+    this.deleteCartItem = this.deleteCartItem.bind(this);
+  }
+
+  deleteCartItem(deleteInformation) {
+    const reqBody = { deleteInformation };
+    const init = {
+      method: 'DELETE',
+      body: JSON.stringify(reqBody),
+      headers: { 'Content-Type': 'application/json' }
     };
+    fetch('/api/cart', init)
+      .then(response => {
+        if (response.ok) {
+          const cartItemId = deleteInformation.cartItemId;
+          const newCart = [...this.context.cart];
+          const index = newCart.findIndex(element => element.cartItemId === cartItemId);
+          newCart.splice(index, 1);
+          this.context.updateCart(newCart);
+        }
+      })
+    ;
   }
 
   render() {
     const cartItems = this.context.cart;
     let total = 0;
     cartItems.forEach(item => { total += item.price; });
-    const display = cartItems.map(item => (<CartSummaryItem key={item.cartItemId} cartItem={item}/>));
+    const display = cartItems.map(item => (<CartSummaryItem key={item.cartItemId} cartItem={item} delete={this.deleteCartItem}/>));
     const itemTotalCheckOut = cartItems.length ? (<div className="checkout-container row">
       <p className="total-price font-weight-bold col-9 brush">
         Item Total: {`$${(total / 100).toFixed(2)}`}
