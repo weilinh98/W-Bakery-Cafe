@@ -79,7 +79,7 @@ export default class App extends React.Component {
       cart: this.state.cart,
       addToCart: this.addToCart,
       placeOrder: this.placeOrder,
-      updateCart: this.updateCart
+      update: this.updateCart
     };
     return (
       <AppContext.Provider value={context}>
