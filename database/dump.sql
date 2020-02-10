@@ -244,13 +244,35 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price) FROM stdin;
 226	20	3	2900
 228	20	3	2900
 230	20	3	2900
+232	21	4	999
+234	23	2	2595
+236	25	3	2900
+239	27	3	2900
+242	29	7	799
+245	30	8	699
+247	30	7	799
+249	33	7	799
+251	35	7	799
+253	36	7	799
+255	37	7	799
 221	19	2	2595
 223	19	4	999
 225	20	3	2900
 227	20	3	2900
 229	20	3	2900
 231	20	3	2900
-219	19	2	2595
+233	22	2	2595
+235	24	2	2595
+237	25	4	999
+238	26	2	2595
+241	29	8	699
+243	29	9	799
+246	31	8	699
+248	32	7	799
+250	34	7	799
+252	36	7	799
+254	36	7	799
+256	38	8	699
 \.
 
 
@@ -279,6 +301,27 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 18	2020-01-15 01:07:06.542736+00
 19	2020-01-15 19:57:27.804999+00
 20	2020-01-15 22:53:24.59+00
+21	2020-01-15 23:58:02.033301+00
+22	2020-01-16 18:28:44.844042+00
+23	2020-01-16 19:10:00.052765+00
+24	2020-01-16 19:11:59.034936+00
+25	2020-01-16 19:27:57.316958+00
+26	2020-01-18 19:58:38.180124+00
+27	2020-01-19 22:01:16.828585+00
+28	2020-02-06 23:36:13.807531+00
+29	2020-02-07 21:39:18.682446+00
+30	2020-02-08 01:05:42.891138+00
+31	2020-02-08 01:22:36.70712+00
+32	2020-02-08 01:33:59.81681+00
+33	2020-02-08 01:43:19.565794+00
+34	2020-02-08 01:46:21.961832+00
+35	2020-02-08 01:51:24.633164+00
+36	2020-02-08 01:52:06.78092+00
+37	2020-02-08 01:58:04.458016+00
+38	2020-02-08 08:40:16.030449+00
+39	2020-02-08 20:13:12.388057+00
+40	2020-02-09 16:24:12.615009+00
+41	2020-02-10 21:45:40.209158+00
 \.
 
 
@@ -287,6 +330,24 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 --
 
 COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", "createdAt") FROM stdin;
+1	20	tony	2382744892	1200 Tyndall Ave	2020-01-15 23:23:52.015145+00
+2	20	tony	2382744892	1200 Tyndall Ave	2020-01-15 23:29:45.865713+00
+3	20	tony	2382744892	1200 Tyndall Ave	2020-01-15 23:30:29.307702+00
+4	20	tony	2382744892	1200 Tyndall Ave	2020-01-15 23:32:09.367677+00
+5	21	tony	2382744892	1200 Tyndall Ave	2020-01-15 23:58:08.765126+00
+10	22	oikh	8967578	fhgjk	2020-01-16 19:08:44.019288+00
+11	23	harry	243253	gdjwdhh street	2020-01-16 19:10:39.103569+00
+12	24	wweiw	1234567	hwdjwh street	2020-01-16 19:12:12.624606+00
+13	29	we	wrrwr	wee	2020-02-08 00:53:05.145695+00
+14	30	Weilin	888888888888	99 Sweet st.	2020-02-08 01:31:23.591043+00
+15	32	wueh	890	jeklq	2020-02-08 01:34:12.059977+00
+16	33	Weilin	27849	hwjfjkwf	2020-02-08 01:43:37.101925+00
+17	34	weilin	163789	hdiwj	2020-02-08 01:46:34.753531+00
+18	35	weilin	123	hjk	2020-02-08 01:51:43.246372+00
+19	37	weilin hong	567890	dfghjk	2020-02-08 01:58:18.027206+00
+20	38	fghj	456789	xcvbnm	2020-02-08 08:40:36.349456+00
+21	38	ghj	345678	hjkm	2020-02-08 08:43:22.965522+00
+22	38	fghj	56789	fghj	2020-02-08 08:44:23.87092+00
 \.
 
 
@@ -295,12 +356,14 @@ COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", 
 --
 
 COPY public.products ("productId", name, price, image, "shortDescription", "longDescription") FROM stdin;
-1	Shake Weight	2999	/images/shake-weight.jpg	Dynamic Inertia technology ignites muscles in arms, shoulders, and chest.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-2	ShamWow	2595	/images/shamwow.jpg	It's like a chamois, towel, and sponge, all in one! Soaks up to 10x it's weight in any liquid!	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-3	Snuggie	2900	/images/snuggie.jpg	Super-Soft Fleece with pockets! One Size fits all Adults! Keeps you Warm & Your Hands-Free!	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-4	Wax Vac	999	/images/wax-vac.jpg	Gentle way to remove ear wax. Safe and hygienic. Reduces the risk of painful infections.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-5	Ostrich Pillow	9900	/images/ostrich-pillow.jpg	Create your own snugly space in the world and feel-good anywhere with the ultimate cocoon pillow.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
-6	Tater Mitts	830	/images/tater-mitts.jpg	8 Seconds is all you need with Tater Mitts. Quickly and easily prepare all your favorite potato dishes with Tater Mitts.	Lorem ipsum dolor amet fashion axe pour-over jianbing, adaptogen waistcoat tacos master cleanse pitchfork next level. Thundercats pour-over chartreuse 90's. Master cleanse hot chicken ennui offal. Freegan slow-carb offal hell of. Umami polaroid wolf slow-carb next level. Gentrify cardigan seitan, kombucha tacos chambray roof party typewriter man braid. Tote bag lo-fi hell of chia fam hammock\\n.Aesthetic photo booth la croix, vaporware leggings biodiesel man braid tumeric skateboard tousled slow-carb four dollar toast synth pabst pickled. Typewriter church-key chia slow-carb vice gochujang actually. Shoreditch austin woke hot chicken, single-origin coffee ugh affogato four loko green juice. Migas iPhone four dollar toast mustache.
+7	Choco Lover	799	/images/donuts/choco-cupcake.jpeg	Made with finest cocoa powder along with the most moisturizing cake which will blow your mind	Our classic Choco Lover is the most popular cupcake in store! It is made of the finest organic cocoa powder in the world. Milk and chocolate cream on top of the chocolate cakke. No wonder it tastes so good. Topped with a rasberry which will lighten your day! 
+8	Sweet Zebra	699	/images/donuts/sweet-zebra.jpg	The perfect combination of coffe and fresh creamy Japanese sweet milk 	The Sweet Zebra is not fully sweet! The bitterness from the expresso and the sweetness of Japanese sweet milk cream are the best taste you will ever try. Get one for breakfast with our classic latte. 
+9	Classic Vanilla	799	/images/donuts/classic-vanilla.jpeg	Super classic madagascan vanilla cream on top of our famous cupcake	Who can say no to vanilla cupcake?! I am drooling when I am writing this, where am I, who am I? Please get me this cupcake!! The vanilla frosting is made with Madagascan 
+11	Shine n Creamy	799	/images/donuts/grape-cupcake.jpeg	Made with the finest grape from Korea, it's fruity and creamy!	Made with Shine Muscat grapes, cream never tastes so good. We mixed this luxury grape with the luxury heavy cream and luxury cane sugar. Everything gotta be luxury because the grapes are soooo expensive. 
+12	I AM UGLY	399	/images/donuts/ugly.jpeg	I am ugly, and why I am the cheapest donut here?!	Look at me in the eyes! Tell me I am not ugly!! I am very tasty!! I am coated with brownie bites and brown sugar. I am so delicious that I even want to eat myself!
+13	Valentine Lover	799	/images/donuts/valentine.jpeg	OMG, it's Valentine's Day! No matter you have Valentine or not, come get one!	What?! It's Valentine's Day again? The heart sprinkles are looking at you! Please bring me home to your lover, partner, huband, girlfriend, crush(omg, that's so cute!). Can't wait to see you!
+10	Lemon Rainbow	699	/images/donuts/yellow-rainbow.jpg	Look like a yellow sky with rainbow, that's why we gave this name to this creative donut	Have you tried our lemon frosting yet, it's not super sour because we add a lot of love while baking. We are here to make your life happier 
+14	Sky Choco & Sky Donut Holes	1099	/images/donuts/hot-chocolate.jpg	Hot chocolate topped with marshmallows and donut holes on the side? Wait for me, girl, I am on my way!	Customers favorite combination of after tea! Why everything is so cute in our store! This is an in-store only item, please come in our store at 99 Cute Ave to enjoy this beautiful dessert set! Add to cart right now to get it at discount price. In store price is $15.99. What a good deal!
 \.
 
 
@@ -308,21 +371,21 @@ COPY public.products ("productId", name, price, image, "shortDescription", "long
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 231, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 266, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 20, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 41, true);
 
 
 --
 -- Name: orders_orderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."orders_orderId_seq"', 1, false);
+SELECT pg_catalog.setval('public."orders_orderId_seq"', 22, true);
 
 
 --

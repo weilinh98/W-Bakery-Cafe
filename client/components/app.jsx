@@ -23,6 +23,18 @@ export default class App extends React.Component {
 
   componentDidMount() {
     this.getCartItems();
+    this.warningUp();
+  }
+
+  warningUp() {
+    Swal.fire({
+      title: 'Hey there!',
+      text:
+        "This is a demo site and no real purchase will be made. Please don't enter any personal information. ",
+      background: 'pink',
+      confirmButtonColor: 'rgb(114, 162, 250)',
+      confirmButtonText: 'Cool'
+    });
   }
 
   getCartItems() {
