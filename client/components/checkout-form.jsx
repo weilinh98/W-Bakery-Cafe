@@ -82,7 +82,7 @@ class CheckoutForm extends React.Component {
             </div>
             <div className="form-footer row">
               <p className="col-8" onClick={() => { this.props.history.push('/'); }}>{'< Continue Shopping'} </p>
-              <button type="submit" className="check-out-button col4">
+              <button type="submit" className="place-order-button col4">
                 Place Order
               </button>
             </div>

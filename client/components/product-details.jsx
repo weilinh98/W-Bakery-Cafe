@@ -37,7 +37,7 @@ class ProductDetails extends React.Component {
             <div className="card">
               <div className="card-header back-to-catalog" onClick={() => { this.props.history.push('/'); }}>{'< Back to Catalog'}</div>
               <div className="card-body">
-                <div className="row">
+                <div>
                   <div className="product-image col">
                     <img src={product.image} />
                   </div>
@@ -72,4 +72,3 @@ class ProductDetails extends React.Component {
 
 export default ProductDetails;
 ProductDetails.contextType = AppContext;
-

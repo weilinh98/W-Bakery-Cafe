@@ -13,10 +13,8 @@ function CartSummaryItem(props) {
         </div>
         <div className="description col-6">
           <h4 className="card-title">{item.name}</h4>
-          <div className= "row">
-            <h5 className="price col-8">{price}</h5>
-            <button className="delete-button" onClick={() => { props.delete(deleteInfo); }}>remove</button>
-          </div>
+          <h5 className="price">{price}</h5>
+          <button className="delete-button" onClick={() => { props.delete(deleteInfo); }}>remove</button>
           <p className="short-description">{item.shortDescription}</p>
         </div>
       </div>

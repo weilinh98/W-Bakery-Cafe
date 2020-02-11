@@ -20,35 +20,23 @@ export default class Carousel extends React.Component {
           <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
         </ol>
         <div className="carousel-inner">
+          <div className="carousel-caption d-none d-md-block center-caption">
+            <p>Welcome</p>
+          </div>
           <div className="carousel-item active">
             <div className="d-block w-100 slide-1" />
-            <div className="carousel-caption d-none d-md-block center-caption">
-              <p>Welcome</p>
-            </div>
           </div>
           <div className="carousel-item">
             <div className="d-block w-100 slide-2" />
-            <div className="carousel-caption d-none d-md-block center-caption">
-              <p>Welcome</p>
-            </div>
           </div>
           <div className="carousel-item">
             <div className="d-block w-100 slide-3" />
-            <div className="carousel-caption d-none d-md-block center-caption">
-              <p>Welcome</p>
-            </div>
           </div>
           <div className="carousel-item">
             <div className="d-block w-100 slide-4" />
-            <div className="carousel-caption d-none d-md-block center-caption">
-              <p>Welcome</p>
-            </div>
           </div>
           <div className="carousel-item">
             <div className="d-block w-100 slide-5" />
-            <div className="carousel-caption d-none d-md-block center-caption">
-              <p>Welcome</p>
-            </div>
           </div>
         </div>
         <a
@@ -58,7 +46,7 @@ export default class Carousel extends React.Component {
           data-slide="prev"
         >
           <span
-            className="carousel-control-prev-icon"
+            className="carousel-control-prev-icon arrow-hover"
             aria-hidden="true"
           ></span>
           <span className="sr-only">Previous</span>
@@ -70,7 +58,7 @@ export default class Carousel extends React.Component {
           data-slide="next"
         >
           <span
-            className="carousel-control-next-icon"
+            className="carousel-control-next-icon arrow-hover"
             aria-hidden="true"
           ></span>
           <span className="sr-only">Next</span>
