@@ -55,7 +55,7 @@ export default class App extends React.Component {
       body: JSON.stringify(reqBody),
       headers: { 'Content-type': 'application/json' }
     };
-    fetch('http://localhost:3000/api/cart', init)
+    fetch('/api/cart', init)
       .then(response => response.json())
       .then(data => {
         const cartCopy = [...this.state.cart];
