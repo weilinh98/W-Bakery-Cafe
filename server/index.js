@@ -62,6 +62,7 @@ app.get('/api/cart', (req, res, next) => {
   } else {
     const sql = `
     select "c"."cartItemId",
+            "c"."quantity",
             "c"."price",
             "p"."productId",
             "p"."image",
@@ -82,6 +83,8 @@ app.get('/api/cart', (req, res, next) => {
 app.post('/api/cart', (req, res, next) => {
   const productId = parseInt(req.body.productId);
   const quantity = parseInt(req.body.quantity);
+  const condition = req.body.condition;
+  console.log(req.session.cartId);
   if (Number.isInteger(productId) && productId > 0) {
     const sql = `
       select "price"
@@ -108,6 +111,7 @@ app.post('/api/cart', (req, res, next) => {
               const cartWithPrice = {};
               cartWithPrice.price = response.rows[0].price;
               cartWithPrice.newCartId = result.rows[0].cartId;
+              req.session.cartId = cartWithPrice.newCartId;
               return cartWithPrice;
             });
         }
@@ -122,12 +126,13 @@ app.post('/api/cart', (req, res, next) => {
 
         return db.query(sql, params)
           .then(response => {
+            const existingProduct = response.rows[0];
             if (!response.rows.length) {
               const sql = `
           insert into "cartItems" ("cartId", "productId", "price", "quantity")
           values ($1, $2, $3, $4)
           returning "cartItemId"`;
-              const params = [response.newCartId, productId, response.price, quantity];
+              const params = [cartWithPrice.newCartId, productId, cartWithPrice.price, quantity];
               return db.query(sql, params)
                 .then(result => {
                   const cartItemId = result.rows[0].cartItemId;
@@ -139,10 +144,16 @@ app.post('/api/cart', (req, res, next) => {
                 set "quantity" = $1
                 where "cartId" = $2 and "productId" = $3
                 returning "cartItemId"`;
-              const params = [quantity, cartWithPrice.newCartId, productId];
+              let newQuantity = null;
+              if (condition === 'add') {
+                newQuantity = existingProduct.quantity + 1;
+              } else {
+                newQuantity = quantity;
+              }
+              const params = [newQuantity, cartWithPrice.newCartId, productId];
               return db.query(sql, params)
                 .then(result => {
-                  const cartItemId = result.rows[0];
+                  const cartItemId = result.rows[0].cartItemId;
                   return cartItemId;
                 });
             }
@@ -153,6 +164,7 @@ app.post('/api/cart', (req, res, next) => {
         const sql = `
         select "c"."cartItemId",
                 "c"."price",
+                "c"."quantity",
                 "p"."productId",
                 "p"."image",
                 "p"."name",

@@ -1,23 +1,23 @@
 import React from 'react';
-
+import AppContext from '../lib/context';
 class CartSummaryItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      quantity: 1
+      quantity: this.props.cartItem.quantity
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    console.log(event.target.value);
+    this.context.addToCart(this.props.cartItem.productId, event.target.value, 'update');
     this.setState({ quantity: event.target.value });
   }
 
   getOptions() {
     const array = [];
     for (let i = 1; i < 101; i++) {
-      const option = <option key= {i} value = {i}>{i}</option>;
+      const option = <option key={i} value={i}>{i}</option>;
       array.push(option);
     }
     return array;
@@ -25,7 +25,8 @@ class CartSummaryItem extends React.Component {
 
   render() {
     const item = this.props.cartItem;
-    const price = `$${(item.price / 100).toFixed(2)}`;
+    const quantity = item.quantity;
+    const price = `$${(item.price * quantity / 100).toFixed(2)}`;
     const deleteInfo = { cartItemId: item.cartItemId, productId: item.productId };
     const options = this.getOptions();
     return (
@@ -58,3 +59,4 @@ class CartSummaryItem extends React.Component {
 }
 
 export default CartSummaryItem;
+CartSummaryItem.contextType = AppContext;

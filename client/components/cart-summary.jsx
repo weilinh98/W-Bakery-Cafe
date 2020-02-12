@@ -33,7 +33,7 @@ class CartSummary extends React.Component {
   render() {
     const cartItems = this.context.cart;
     let total = 0;
-    cartItems.forEach(item => { total += item.price; });
+    cartItems.forEach(item => { total += item.price * item.quantity; });
     const display = cartItems.map(item => (<CartSummaryItem key={item.cartItemId} cartItem={item} delete={this.deleteCartItem}/>));
     const itemTotalCheckOut = cartItems.length ? (<div className="checkout-container row">
       <p className="total-price font-weight-bold col-9 brush">

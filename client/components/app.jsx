@@ -48,8 +48,8 @@ export default class App extends React.Component {
       });
   }
 
-  addToCart(productId, quantity) {
-    const reqBody = { productId: parseInt(productId), quantity: parseInt(quantity) };
+  addToCart(productId, quantity, condition) {
+    const reqBody = { productId: parseInt(productId), quantity: parseInt(quantity), condition: condition };
     const init = {
       method: 'POST',
       body: JSON.stringify(reqBody),
@@ -59,7 +59,13 @@ export default class App extends React.Component {
       .then(response => response.json())
       .then(data => {
         const cartCopy = [...this.state.cart];
-        cartCopy.push(data);
+        const cartItem = cartCopy.find(element => element.cartItemId === data.cartItemId);
+        if (cartItem) {
+          const index = cartCopy.findIndex(element => element.cartItemId === data.cartItemId);
+          cartCopy[index] = data;
+        } else {
+          cartCopy.push(data);
+        }
         this.setState(state => ({ cart: cartCopy }));
       });
   }

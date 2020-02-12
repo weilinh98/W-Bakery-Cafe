@@ -50,7 +50,7 @@ class ProductDetails extends React.Component {
                       type="button"
                       className="add-cart-button hvr-pulse"
                       onClick={() => {
-                        this.context.addToCart(this.props.match.params.productid, 1);
+                        this.context.addToCart(this.props.match.params.productid, 1, 'add');
                       }}
                     >
                       Add to Cart

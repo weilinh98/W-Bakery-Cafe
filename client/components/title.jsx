@@ -11,6 +11,8 @@ class Title extends React.Component {
   }
 
   render() {
+    let cartAmount = 0;
+    this.context.cart.forEach(element => { cartAmount += element.quantity; });
     return (
       <div className="title p-3">
         <div className="store-name glow">♥ .W Bakery & Cafe. ♥ </div>
@@ -21,7 +23,7 @@ class Title extends React.Component {
               src="https://img.icons8.com/dusk/64/000000/shopping-cart.png"
             />
           </Link>
-          <p className="cart-amount">{this.context.cart.length}</p>
+          <p className="cart-amount">{cartAmount}</p>
         </div>
       </div>
     );
