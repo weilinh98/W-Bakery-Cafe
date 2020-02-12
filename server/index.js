@@ -215,6 +215,12 @@ app.delete('/api/cart', (req, res, next) => {
 
   }
 });
+
+app.post('/api/update-quantity', (req, res, next) => {
+  const { amount } = req.body;
+  console.log(amount);
+
+});
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
