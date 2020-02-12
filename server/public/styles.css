@@ -172,6 +172,7 @@ img.card-img-top{
   border-radius: 4px;
   width: 50vh;
   margin-left: 7px;
+  font-size: 1.2rem;
 }
 
 .short-description > .price{
@@ -192,14 +193,14 @@ img.card-img-top{
 }
 
 .cart-title :nth-child(1), .form-title :nth-child(2), .form-footer :nth-child(1){
-  font-size: 0.8rem;
+  font-size: 1.5rem;
   font-style: italic;
   cursor: pointer;
   color: grey;
 }
 
 .cart-title :nth-child(2), .form-title :nth-child(1){
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   font-weight: bold;
 }
 .cart-container > .card{
@@ -238,7 +239,8 @@ img.card-img-top{
 }
 .checkout-container{
   display: flex;
-  width: 70%
+  width: 70%;
+  font-size: 2.5rem;
 }
 
 .form-container{
@@ -277,14 +279,17 @@ img.card-img-top{
   font-family: Cookie, cursive;
 }
 
+.back-to-catalog{
+  font-size: 1.5rem;
+}
 .check-out-button{
   background-color: rgb(114, 162, 250);
   border-radius: 10px;
   font-family: Cookie, cursive;
   color: white;
-  width: 60px;
-  height: 25px;
-  font-size: 12px;
+  width: 100px;
+  height: 40px;
+  font-size: 1.5rem;
 }
 
 .place-order-button{
@@ -292,9 +297,9 @@ img.card-img-top{
   border-radius: 10px;
   font-family: Cookie, cursive;
   color: white;
-  width: 70px;
-  height: 25px;
-  font-size: 12px;
+  width: 100px;
+  height: 50px;
+  font-size: 1.4rem;
 }
 
 .banned{

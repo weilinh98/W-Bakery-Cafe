@@ -39,13 +39,11 @@ class CartSummary extends React.Component {
       <p className="total-price font-weight-bold col-9 brush">
         Item Total: {`$${(total / 100).toFixed(2)}`}
       </p>
-      <div className="checkout-button-container col-3">
-        <Link to={'/checkout'}>
-          <button type="button" className="check-out-button hvr-pulse">
+      <Link to={'/checkout'}>
+        <button type="button" className="check-out-button hvr-pulse">
             Check Out
-          </button>
-        </Link>
-      </div>
+        </button>
+      </Link>
     </div>) : <p className="cart-description">Nothing in the cart. Please fill me up!!</p>;
     return (
       <React.Fragment>
