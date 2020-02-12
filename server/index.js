@@ -81,6 +81,7 @@ app.get('/api/cart', (req, res, next) => {
 
 app.post('/api/cart', (req, res, next) => {
   const productId = parseInt(req.body.productId);
+  const quantity = parseInt(req.body.quantity);
   if (Number.isInteger(productId) && productId > 0) {
     const sql = `
       select "price"
@@ -112,16 +113,39 @@ app.post('/api/cart', (req, res, next) => {
         }
       })
       .then(response => {
-        req.session.cartId = response.newCartId;
+        const cartWithPrice = response;
         const sql = `
-          insert into "cartItems" ("cartId", "productId", "price")
-          values ($1, $2, $3)
-          returning "cartItemId"`;
-        const params = [response.newCartId, productId, response.price];
+          select *
+            from "cartItems"
+            where "cartId" = $1 and "productId" = $2`;
+        const params = [cartWithPrice.newCartId, productId];
+
         return db.query(sql, params)
-          .then(result => {
-            const cartItemId = result.rows[0].cartItemId;
-            return cartItemId;
+          .then(response => {
+            if (!response.rows.length) {
+              const sql = `
+          insert into "cartItems" ("cartId", "productId", "price", "quantity")
+          values ($1, $2, $3, $4)
+          returning "cartItemId"`;
+              const params = [response.newCartId, productId, response.price, quantity];
+              return db.query(sql, params)
+                .then(result => {
+                  const cartItemId = result.rows[0].cartItemId;
+                  return cartItemId;
+                });
+            } else {
+              const sql = `
+              update "cartItems"
+                set "quantity" = $1
+                where "cartId" = $2 and "productId" = $3
+                returning "cartItemId"`;
+              const params = [quantity, cartWithPrice.newCartId, productId];
+              return db.query(sql, params)
+                .then(result => {
+                  const cartItemId = result.rows[0];
+                  return cartItemId;
+                });
+            }
           });
       })
       .then(response => {
@@ -216,11 +240,6 @@ app.delete('/api/cart', (req, res, next) => {
   }
 });
 
-app.post('/api/update-quantity', (req, res, next) => {
-  const { amount } = req.body;
-  console.log(amount);
-
-});
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });

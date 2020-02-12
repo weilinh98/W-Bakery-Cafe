@@ -48,8 +48,8 @@ export default class App extends React.Component {
       });
   }
 
-  addToCart(productId) {
-    const reqBody = { productId: parseInt(productId) };
+  addToCart(productId, quantity) {
+    const reqBody = { productId: parseInt(productId), quantity: parseInt(quantity) };
     const init = {
       method: 'POST',
       body: JSON.stringify(reqBody),
