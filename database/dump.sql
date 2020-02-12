@@ -255,6 +255,8 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price) FROM stdin;
 251	35	7	799
 253	36	7	799
 255	37	7	799
+270	42	8	699
+272	43	8	699
 221	19	2	2595
 223	19	4	999
 225	20	3	2900
@@ -322,6 +324,8 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 39	2020-02-08 20:13:12.388057+00
 40	2020-02-09 16:24:12.615009+00
 41	2020-02-10 21:45:40.209158+00
+42	2020-02-11 18:37:27.322535+00
+43	2020-02-11 20:54:36.887415+00
 \.
 
 
@@ -348,6 +352,9 @@ COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", 
 20	38	fghj	456789	xcvbnm	2020-02-08 08:40:36.349456+00
 21	38	ghj	345678	hjkm	2020-02-08 08:43:22.965522+00
 22	38	fghj	56789	fghj	2020-02-08 08:44:23.87092+00
+23	42	Weilin	2442	fefe	2020-02-11 20:51:04.030065+00
+24	42	Weilin	67890	bdjwdmw	2020-02-11 20:54:05.544127+00
+25	43	rdrgsgyq	627890	bhjdwhdkw\n\n	2020-02-11 20:54:47.354431+00
 \.
 
 
@@ -361,8 +368,8 @@ COPY public.products ("productId", name, price, image, "shortDescription", "long
 9	Classic Vanilla	799	/images/donuts/classic-vanilla.jpeg	Super classic madagascan vanilla cream on top of our famous cupcake	Who can say no to vanilla cupcake?! I am drooling when I am writing this, where am I, who am I? Please get me this cupcake!! The vanilla frosting is made with Madagascan 
 11	Shine n Creamy	799	/images/donuts/grape-cupcake.jpeg	Made with the finest grape from Korea, it's fruity and creamy!	Made with Shine Muscat grapes, cream never tastes so good. We mixed this luxury grape with the luxury heavy cream and luxury cane sugar. Everything gotta be luxury because the grapes are soooo expensive. 
 12	I AM UGLY	399	/images/donuts/ugly.jpeg	I am ugly, and why I am the cheapest donut here?!	Look at me in the eyes! Tell me I am not ugly!! I am very tasty!! I am coated with brownie bites and brown sugar. I am so delicious that I even want to eat myself!
-13	Valentine Lover	799	/images/donuts/valentine.jpeg	OMG, it's Valentine's Day! No matter you have Valentine or not, come get one!	What?! It's Valentine's Day again? The heart sprinkles are looking at you! Please bring me home to your lover, partner, huband, girlfriend, crush(omg, that's so cute!). Can't wait to see you!
 10	Lemon Rainbow	699	/images/donuts/yellow-rainbow.jpg	Look like a yellow sky with rainbow, that's why we gave this name to this creative donut	Have you tried our lemon frosting yet, it's not super sour because we add a lot of love while baking. We are here to make your life happier 
+13	Valentine Lover	799	/images/donuts/valentine.jpeg	OMG, it's Valentine's Day! No matter you have Valentine or not, come get one!	What?! It's Valentine's Day again? The heart sprinkles are looking at you! Please bring me home to your lover, partner, huband, girlfriend, crush. Can't wait to see you!
 14	Sky Choco & Sky Donut Holes	1099	/images/donuts/hot-chocolate.jpg	Hot chocolate topped with marshmallows and donut holes on the side? Wait for me, girl, I am on my way!	Customers favorite combination of after tea! Why everything is so cute in our store! This is an in-store only item, please come in our store at 99 Cute Ave to enjoy this beautiful dessert set! Add to cart right now to get it at discount price. In store price is $15.99. What a good deal!
 \.
 
@@ -371,21 +378,21 @@ COPY public.products ("productId", name, price, image, "shortDescription", "long
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 266, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 272, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 41, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 43, true);
 
 
 --
 -- Name: orders_orderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."orders_orderId_seq"', 22, true);
+SELECT pg_catalog.setval('public."orders_orderId_seq"', 25, true);
 
 
 --
