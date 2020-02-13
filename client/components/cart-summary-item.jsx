@@ -66,7 +66,7 @@ class CartSummaryItem extends React.Component {
               <button
                 className="delete-button mr-2"
                 onClick={() => {
-                  this.confirmDelete(deleteInfo, item.name);
+                  this.confirmDelete(deleteInfo, item.productName);
                 }}
               >
                 remove

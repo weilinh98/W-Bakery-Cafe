@@ -164,7 +164,7 @@ app.post('/api/cart', (req, res, next) => {
         const sql = `
         select "c"."cartItemId",
                 "c"."price",
-                "c"."quantity",
+                "c"."quantity"
                 "p"."productId",
                 "p"."image",
                 "p"."name",
