@@ -1,11 +1,13 @@
 import React from 'react';
 import AppContext from '../lib/context';
 import Title from './title';
+import Swal from 'sweetalert2';
 
 class ProductDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = { product: null };
+    this.confirmAddCart = this.confirmAddCart.bind(this);
   }
 
   componentDidMount() {
@@ -22,6 +24,11 @@ class ProductDetails extends React.Component {
       .then(data => {
         this.setState(state => ({ product: data }));
       });
+  }
+
+  confirmAddCart(productId, quantity, condition) {
+    Swal.fire('Item has been added to your cart!');
+    this.context.addToCart(productId, quantity, condition);
   }
 
   render() {
@@ -50,7 +57,7 @@ class ProductDetails extends React.Component {
                       type="button"
                       className="add-cart-button hvr-pulse"
                       onClick={() => {
-                        this.context.addToCart(this.props.match.params.productid, 1, 'add');
+                        this.confirmAddCart(this.props.match.params.productid, 1, 'add');
                       }}
                     >
                       Add to Cart

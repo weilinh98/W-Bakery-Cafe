@@ -1,4 +1,5 @@
 import React from 'react';
+import Swal from 'sweetalert2';
 import AppContext from '../lib/context';
 class CartSummaryItem extends React.Component {
   constructor(props) {
@@ -7,6 +8,7 @@ class CartSummaryItem extends React.Component {
       quantity: this.props.cartItem.quantity
     };
     this.handleChange = this.handleChange.bind(this);
+    this.confirmDelete = this.confirmDelete.bind(this);
   }
 
   handleChange(event) {
@@ -21,6 +23,27 @@ class CartSummaryItem extends React.Component {
       array.push(option);
     }
     return array;
+  }
+
+  confirmDelete(deleteInfo, productName) {
+    Swal.fire({
+      title: 'Really?',
+      text: `Are you sure to remove ${productName} from your cart?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, remove it!'
+    }).then(result => {
+      if (result.value) {
+        Swal.fire(
+          'Deleted!',
+          'Item has been removed from your cart!',
+          'success'
+        );
+        this.props.delete(deleteInfo);
+      }
+    });
   }
 
   render() {
@@ -43,7 +66,7 @@ class CartSummaryItem extends React.Component {
               <button
                 className="delete-button mr-2"
                 onClick={() => {
-                  this.props.delete(deleteInfo);
+                  this.confirmDelete(deleteInfo, item.name);
                 }}
               >
                 remove
