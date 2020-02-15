@@ -27,7 +27,20 @@ class ProductDetails extends React.Component {
   }
 
   confirmAddCart(productId, quantity, condition) {
-    Swal.fire('Item has been added to your cart!');
+    Swal.fire({
+      title: 'Item has been added to your cart!',
+      showCancelButton: true,
+      confirmButtonColor: 'blue',
+      cancelButtonColor: 'purple',
+      cancelButtonText: 'View Cart',
+      confirmButtonText: 'Continue Shopping'
+    }).then(result => {
+      if (result.value) {
+        this.props.history.push('/');
+      } else {
+        this.props.history.push('/cart');
+      }
+    });
     this.context.addToCart(productId, quantity, condition);
   }
 
