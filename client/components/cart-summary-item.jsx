@@ -9,6 +9,8 @@ class CartSummaryItem extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.confirmDelete = this.confirmDelete.bind(this);
+    this.increment = this.increment.bind(this);
+    this.decrement = this.decrement.bind(this);
   }
 
   handleChange(event) {
@@ -16,13 +18,16 @@ class CartSummaryItem extends React.Component {
     this.setState({ quantity: event.target.value });
   }
 
-  getOptions() {
-    const array = [];
-    for (let i = 1; i < 101; i++) {
-      const option = <option key={i} value={i}>{i}</option>;
-      array.push(option);
-    }
-    return array;
+  increment() {
+    const quantity = this.state.quantity + 1;
+    this.context.addToCart(this.props.cartItem.productId, quantity, 'update');
+    this.setState({ quantity });
+  }
+
+  decrement() {
+    const quantity = this.state.quantity - 1;
+    this.context.addToCart(this.props.cartItem.productId, quantity, 'update');
+    this.setState({ quantity });
   }
 
   confirmDelete(deleteInfo, productName) {
@@ -51,7 +56,6 @@ class CartSummaryItem extends React.Component {
     const quantity = item.quantity;
     const price = `$${(item.price * quantity / 100).toFixed(2)}`;
     const deleteInfo = { cartItemId: item.cartItemId, productId: item.productId };
-    const options = this.getOptions();
     return (
       <div className="card">
         <div className="card-body row">
@@ -66,12 +70,14 @@ class CartSummaryItem extends React.Component {
               <button
                 className="delete-button mr-2"
                 onClick={() => {
-                  this.confirmDelete(deleteInfo, item.name);
+                  this.confirmDelete(deleteInfo, item.productName);
                 }}
               >
                 remove
               </button>
-              <select onChange={this.handleChange} value={this.state.quantity}>{options}</select>
+              <div className="quantity buttons_added">
+                <input type="button" value="-" className="minus" onClick={this.decrement}/><input className="input-text qty text" value={this.state.quantity} onChange={this.handleChange}/><input type="button" value="+" className="plus" onClick={this.increment}/>
+              </div>
             </div>
             <p className="short-description">{item.shortDescription}</p>
           </div>

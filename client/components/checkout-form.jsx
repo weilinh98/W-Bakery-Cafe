@@ -35,58 +35,66 @@ class CheckoutForm extends React.Component {
     const cartItems = this.context.cart;
     let total = 0;
     cartItems.forEach(item => {
-      total += item.price;
+      total += item.price * item.quantity;
     });
     return (
       <React.Fragment>
         <Title />
         <div className="form-container">
-          <div className="form-title mb-4">
-            <p>{"Enter Your Info Below (Please don't enter any personal information)"}</p>
-            <p>{`Item Total: $${(total / 100).toFixed(2)}`}</p>
-          </div>
+          <div className="check-out-box row">
+            <div className="check-out-title mb-4 col-12">
+              <p>Check Out</p>
+              <p>{'*Please DO NOT enter any personal information'}</p>
+            </div>
 
-          <form onSubmit={this.handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="inputEmail4">Full Name</label>
-              <textarea
-                required
-                type="text"
-                className="form-control"
-                name="name"
-                onChange={this.handleChange}
-                value={this.state.name}
-              />
+            <div className="order-summary col-4">
+              <p>{`Item Total: $${(total / 100).toFixed(2)}`}</p>
             </div>
-            <div className="form-group">
-              <label htmlFor="inputAddress">Credit Card Number</label>
-              <textarea
-                required
-                type="text"
-                className="form-control"
-                name="creditCardNumber"
-                onChange={this.handleChange}
-                value={this.state.creditCardNumber}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="inputAddress2">Shipping Address</label>
-              <textarea
-                required
-                type="text"
-                className="form-control"
-                name="shippingAddress"
-                onChange={this.handleChange}
-                value={this.state.shippingAddress}
-              />
-            </div>
-            <div className="form-footer row">
-              <p className="col-8" onClick={() => { this.props.history.push('/'); }}>{'< Continue Shopping'} </p>
-              <button type="submit" className="place-order-button col4">
+            <div className="col-8">
+              <p>Shipping Info</p>
+              <form onSubmit={this.handleSubmit}>
+                <div className="form-group">
+                  <label htmlFor="inputEmail4">Full Name</label>
+                  <textarea
+                    required
+                    type="text"
+                    className="form-control"
+                    name="name"
+                    onChange={this.handleChange}
+                    value={this.state.name}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="inputAddress">Credit Card Number</label>
+                  <textarea
+                    required
+                    type="text"
+                    className="form-control"
+                    name="creditCardNumber"
+                    onChange={this.handleChange}
+                    value={this.state.creditCardNumber}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="inputAddress2">Shipping Address</label>
+                  <textarea
+                    required
+                    type="text"
+                    className="form-control"
+                    name="shippingAddress"
+                    onChange={this.handleChange}
+                    value={this.state.shippingAddress}
+                  />
+                </div>
+                <div className="form-footer row">
+                  <p className="col-8" onClick={() => { this.props.history.push('/'); }}>{'< Continue Shopping'} </p>
+                  <button type="submit" className="place-order-button col4">
                 Place Order
-              </button>
+                  </button>
+                </div>
+              </form>
             </div>
-          </form>
+          </div>
         </div>
       </React.Fragment>
     );

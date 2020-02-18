@@ -84,7 +84,6 @@ app.post('/api/cart', (req, res, next) => {
   const productId = parseInt(req.body.productId);
   const quantity = parseInt(req.body.quantity);
   const condition = req.body.condition;
-  console.log(req.session.cartId);
   if (Number.isInteger(productId) && productId > 0) {
     const sql = `
       select "price"
