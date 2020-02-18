@@ -261,6 +261,11 @@ img.card-img-top{
   border-radius: 3px
 }
 
+.shipping-info-title{
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 /* button effect */
 @keyframes hvr-pulse {
   25% {

@@ -7,7 +7,10 @@ class CheckoutForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
+      firstName: '',
+      lastName: '',
+      emailAddress: '',
+      phoneNumber: '',
       creditCardNumber: '',
       shippingAddress: ''
     };
@@ -51,20 +54,33 @@ class CheckoutForm extends React.Component {
               <p>{`Item Total: $${(total / 100).toFixed(2)}`}</p>
             </div>
 
-            <div className="col-8">
-              <p>Shipping Info</p>
+            <div className="col-8 shipping-info-conatiner">
               <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
-                  <label htmlFor="inputEmail4">Full Name</label>
-                  <textarea
-                    required
-                    type="text"
-                    className="form-control"
-                    name="name"
-                    onChange={this.handleChange}
-                    value={this.state.name}
-                  />
+                  <p className="shipping-info-title">Shipping Info</p>
                 </div>
+                <div className="form-group row">
+                  <div className="col-6">
+                    <label>First Name</label>
+                    <input type="text" required className="form-control" placeholder="First Name" autoComplete="off" name="firstName" minLength="2" maxLength="32" value={this.state.firstName} onChange={this.handleChange}/>
+                  </div>
+                  <div className="col-6">
+                    <label>Last Name</label>
+                    <input type="text" required className="form-control" placeholder="First Name" autoComplete="off" name="lastName" minLength="2" maxLength="32" value={this.state.lastName} onChange={this.handleChange}/>
+                  </div>
+                </div>
+
+                <div className="form-group row">
+                  <div className="col-6">
+                    <label>Email Address</label>
+                    <input type="text" required className="form-control" placeholder="Email Address" autoComplete="off" name="emailAddress" minLength="6" maxLength="254" value={this.state.emailAddress} onChange={this.handleChange}/>
+                  </div>
+                  <div className="col-6">
+                    <label>Phone Number</label>
+                    <input type="text" required className="form-control" placeholder="Phone Number" autoComplete="off" name="phoneNumber" minLength="10" maxLength="10" value={this.state.phoneNumber} onChange={this.handleChange}/>
+                  </div>
+                </div>
+
                 <div className="form-group">
                   <label htmlFor="inputAddress">Credit Card Number</label>
                   <textarea
