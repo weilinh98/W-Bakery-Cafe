@@ -50,6 +50,7 @@ class CheckoutForm extends React.Component {
             <div className="order-summary col-4">
               <p>{`Item Total: $${(total / 100).toFixed(2)}`}</p>
             </div>
+
             <div className="col-8">
               <p>Shipping Info</p>
               <form onSubmit={this.handleSubmit}>
