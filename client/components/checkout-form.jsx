@@ -13,6 +13,10 @@ class CheckoutForm extends React.Component {
       phoneNumber: '',
       nameOnCard: '',
       creditCardNumber: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      Country: '',
       shippingAddress: ''
     };
     this.handleChange = this.handleChange.bind(this);
@@ -22,7 +26,11 @@ class CheckoutForm extends React.Component {
   handleChange(event) {
     const property = event.target.name;
     const value = event.target.value;
-    this.setState(state => ({ [property]: value }));
+    if (property === 'state') {
+      this.setState(state => ({ [property]: value.toUpperCase() }));
+    } else {
+      this.setState(state => ({ [property]: value }));
+    }
   }
 
   handleSubmit(event) {
@@ -86,7 +94,28 @@ class CheckoutForm extends React.Component {
 
                 <div className="form-group">
                   <label>Shipping Address</label>
-                  <input type="text" required className="form-control" placeholder="Shipping Address" autoComplete="off" name="shippingAddress" minLength="6" maxLength="254" value={this.state.shippingAddress} onChange={this.handleChange} />
+                  <input type="text" required className="form-control" placeholder="Shipping Address" autoComplete="off" name="shippingAddress" minLength="6" maxLength="64" value={this.state.shippingAddress} onChange={this.handleChange} />
+                </div>
+
+                <div className="form-group">
+                  <div className="row">
+                    <div className="col-3">
+                      <label>City</label>
+                      <input type="text" required className="form-control" placeholder="City" autoComplete="off" name="city" minLength="3" maxLength="50" value={this.state.city} onChange={this.handleChange} />
+                    </div>
+                    <div className="col-3">
+                      <label>State</label>
+                      <input type="text" required className="form-control" placeholder="State" autoComplete="off" name="state" minLength="2" maxLength="2" value={this.state.state} onChange={this.handleChange} />
+                    </div>
+                    <div className="col-3">
+                      <label>Zip Code</label>
+                      <input type="text" required className="form-control" placeholder="Zip Code" autoComplete="off" name="zipCode" minLength="5" maxLength="5" value={this.state.zipCode} onChange={this.handleChange} />
+                    </div>
+                    <div className="col-3">
+                      <label>Country</label>
+                      <input type="text" required className="form-control" placeholder="Country" autoComplete="off" name="country" value="US" onChange={this.handleChange} />
+                    </div>
+                  </div>
                 </div>
 
                 <div className="form-group">
@@ -95,12 +124,12 @@ class CheckoutForm extends React.Component {
 
                 <div className="form-group">
                   <label>Full Name On Card</label>
-                  <input type="text" required className="form-control" placeholder="Full Name On Card" autoComplete="off" name="nameOnCard" minLength="6" maxLength="254" value={this.state.nameOnCard} onChange={this.handleChange} />
+                  <input type="text" required className="form-control" placeholder="Full Name On Card" autoComplete="off" name="nameOnCard" minLength="5" maxLength="65" value={this.state.nameOnCard} onChange={this.handleChange} />
                 </div>
 
                 <div className="form-group">
                   <label>Credit Card Number</label>
-                  <input type="text" required className="form-control" placeholder="Credit Card Number" autoComplete="off" name="creditCardNumber" minLength="6" maxLength="254" value={this.state.creditCardNumber} onChange={this.handleChange} />
+                  <input type="text" required className="form-control" placeholder="Credit Card Number" autoComplete="off" name="creditCardNumber" minLength="16" maxLength="16" value={this.state.creditCardNumber} onChange={this.handleChange} />
                 </div>
 
                 <div className="form-footer row">
