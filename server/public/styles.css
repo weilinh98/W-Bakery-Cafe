@@ -192,14 +192,18 @@ img.card-img-top{
  width: 80%;
 }
 
-.cart-title :nth-child(1), .form-title :nth-child(2), .form-footer :nth-child(1){
+.cart-title :nth-child(1), .form-footer :nth-child(1){
   font-size: 1.5rem;
   font-style: italic;
   cursor: pointer;
   color: grey;
 }
 
-.cart-title :nth-child(2), .form-title :nth-child(1){
+.check-out-title :nth-child(2){
+  color: red;
+}
+
+.cart-title :nth-child(2), .check-out-title :nth-child(1){
   font-size: 2.5rem;
   font-weight: bold;
 }
@@ -249,6 +253,12 @@ img.card-img-top{
   width: 100%;
   margin-top: 25vh;
   padding: 10%;
+}
+
+.check-out-box{
+  background-color: rgb(223, 60, 160, 0.2);
+  padding: 4%;
+  border-radius: 3px
 }
 
 /* button effect */
@@ -306,6 +316,66 @@ img.card-img-top{
   display: none;
 }
 
+
+.quantity {
+ display: inline-block; }
+
+.quantity .input-text.qty {
+ width: 35px;
+ height: 30px;
+ padding: 0 5px;
+ text-align: center;
+ background-color: transparent;
+ border: 1px solid #efefef;
+}
+
+.quantity.buttons_added {
+ text-align: left;
+ position: relative;
+ white-space: nowrap;
+ vertical-align: top; }
+
+.quantity.buttons_added input {
+ display: inline-block;
+ margin: 0;
+ vertical-align: top;
+ box-shadow: none;
+}
+
+.quantity.buttons_added .minus,
+.quantity.buttons_added .plus {
+ height: 30px;
+ background-color: #ffffff;
+ border: 1px solid #efefef;
+ cursor:pointer;
+ background-color: #eeeeee;
+}
+
+.quantity.buttons_added .minus {
+ border-right: 0;
+}
+
+.quantity.buttons_added .plus {
+ border-left: 0;
+}
+
+.quantity.buttons_added .minus:hover,
+.quantity.buttons_added .plus:hover {
+ background-color: whitesmoke;
+}
+
+.quantity input::-webkit-outer-spin-button,
+.quantity input::-webkit-inner-spin-button {
+ -webkit-appearance: none;
+ -moz-appearance: none;
+ margin: 0;
+}
+
+ .quantity.buttons_added .minus:focus,
+.quantity.buttons_added .plus:focus {
+ outline: none;
+}
+
 @media only screen and (max-width: 832px) {
   .store-name{
     font-size: 1.5rem;
@@ -338,9 +408,6 @@ img.card-img-top{
     }
     .form-container{
       margin-top: 17vh;
-    }
-    .cart-container{
-      margin-top: 0;
     }
     .cart-container .description{
       font-size: 0.5rem;

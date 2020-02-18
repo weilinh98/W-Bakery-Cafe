@@ -30,8 +30,8 @@ class ProductDetails extends React.Component {
     Swal.fire({
       title: 'Item has been added to your cart!',
       showCancelButton: true,
-      confirmButtonColor: 'blue',
-      cancelButtonColor: 'purple',
+      confirmButtonColor: 'pink',
+      cancelButtonColor: 'tomato',
       cancelButtonText: 'View Cart',
       confirmButtonText: 'Continue Shopping'
     }).then(result => {

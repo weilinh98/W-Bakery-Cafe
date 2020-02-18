@@ -48,8 +48,9 @@ export default class App extends React.Component {
       });
   }
 
-  addToCart(productId, quantity) {
-    const reqBody = { productId: parseInt(productId), quantity: parseInt(quantity) };
+  addToCart(productId, quantity, condition) {
+    const reqBody = { productId: parseInt(productId), quantity: parseInt(quantity), condition };
+    console.log(reqBody);
     const init = {
       method: 'POST',
       body: JSON.stringify(reqBody),
@@ -58,6 +59,7 @@ export default class App extends React.Component {
     fetch('/api/cart', init)
       .then(response => response.json())
       .then(data => {
+
         const cartCopy = [...this.state.cart];
         const cartItem = cartCopy.find(element => element.cartItemId === data.cartItemId);
         if (cartItem) {
