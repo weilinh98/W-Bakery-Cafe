@@ -11,6 +11,7 @@ class CheckoutForm extends React.Component {
       lastName: '',
       emailAddress: '',
       phoneNumber: '',
+      nameOnCard: '',
       creditCardNumber: '',
       shippingAddress: ''
     };
@@ -56,9 +57,11 @@ class CheckoutForm extends React.Component {
 
             <div className="col-8 shipping-info-conatiner">
               <form onSubmit={this.handleSubmit}>
+
                 <div className="form-group">
-                  <p className="shipping-info-title">Shipping Info</p>
+                  <p className="form-subtitle">Shipping Info</p>
                 </div>
+
                 <div className="form-group row">
                   <div className="col-6">
                     <label>First Name</label>
@@ -82,27 +85,24 @@ class CheckoutForm extends React.Component {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="inputAddress">Credit Card Number</label>
-                  <textarea
-                    required
-                    type="text"
-                    className="form-control"
-                    name="creditCardNumber"
-                    onChange={this.handleChange}
-                    value={this.state.creditCardNumber}
-                  />
+                  <label>Shipping Address</label>
+                  <input type="text" required className="form-control" placeholder="Shipping Address" autoComplete="off" name="shippingAddress" minLength="6" maxLength="254" value={this.state.shippingAddress} onChange={this.handleChange} />
                 </div>
+
                 <div className="form-group">
-                  <label htmlFor="inputAddress2">Shipping Address</label>
-                  <textarea
-                    required
-                    type="text"
-                    className="form-control"
-                    name="shippingAddress"
-                    onChange={this.handleChange}
-                    value={this.state.shippingAddress}
-                  />
+                  <p className="form-subtitle">Payment Info</p>
                 </div>
+
+                <div className="form-group">
+                  <label>Full Name On Card</label>
+                  <input type="text" required className="form-control" placeholder="Full Name On Card" autoComplete="off" name="nameOnCard" minLength="6" maxLength="254" value={this.state.nameOnCard} onChange={this.handleChange} />
+                </div>
+
+                <div className="form-group">
+                  <label>Credit Card Number</label>
+                  <input type="text" required className="form-control" placeholder="Credit Card Number" autoComplete="off" name="creditCardNumber" minLength="6" maxLength="254" value={this.state.creditCardNumber} onChange={this.handleChange} />
+                </div>
+
                 <div className="form-footer row">
                   <p className="col-8" onClick={() => { this.props.history.push('/'); }}>{'< Continue Shopping'} </p>
                   <button type="submit" className="place-order-button col4">
