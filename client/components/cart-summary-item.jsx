@@ -14,8 +14,13 @@ class CartSummaryItem extends React.Component {
   }
 
   handleChange(event) {
-    this.context.addToCart(this.props.cartItem.productId, event.target.value, 'update');
-    this.setState({ quantity: event.target.value });
+    const value = parseInt(event.target.value);
+    if (value === 0 || value < 0 || isNaN(value)) {
+      this.setState(state => ({ quantity: ' ' }));
+    } else {
+      this.context.addToCart(this.props.cartItem.productId, parseInt(event.target.value), 'update');
+      this.setState({ quantity: value });
+    }
   }
 
   increment() {
@@ -25,9 +30,11 @@ class CartSummaryItem extends React.Component {
   }
 
   decrement() {
-    const quantity = this.state.quantity - 1;
-    this.context.addToCart(this.props.cartItem.productId, quantity, 'update');
-    this.setState({ quantity });
+    if (this.state.quantity > 1) {
+      const quantity = this.state.quantity - 1;
+      this.context.addToCart(this.props.cartItem.productId, quantity, 'update');
+      this.setState({ quantity });
+    }
   }
 
   confirmDelete(deleteInfo, productName) {
