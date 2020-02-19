@@ -23,7 +23,7 @@ class CheckoutForm extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleMonthYearChange = this.handleMonthYearChange.bind(this);
-    this.handleCreditCardChange = this.handleCreditCardChange.bind(this);
+    this.handleNumberChange = this.handleNumberChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -37,7 +37,7 @@ class CheckoutForm extends React.Component {
     }
   }
 
-  handleCreditCardChange(event) {
+  handleNumberChange(event) {
     const property = event.target.name;
     const value = event.target.value;
     if (parseInt(value.slice(-1)) || event.target.value === '') {
@@ -104,7 +104,7 @@ class CheckoutForm extends React.Component {
                   </div>
                   <div className="col-6">
                     <label>Phone Number</label>
-                    <input type="text" required className="form-control" placeholder="Phone Number" autoComplete="off" name="phoneNumber" minLength="10" maxLength="10" value={this.state.phoneNumber} onChange={this.handleChange}/>
+                    <input type="text" required className="form-control" placeholder="Phone Number" autoComplete="off" name="phoneNumber" minLength="10" maxLength="10" value={this.state.phoneNumber} onChange={this.handleNumberChange}/>
                   </div>
                 </div>
 
@@ -125,7 +125,7 @@ class CheckoutForm extends React.Component {
                     </div>
                     <div className="col-3">
                       <label>Zip Code</label>
-                      <input type="text" required className="form-control" placeholder="Zip Code" autoComplete="off" name="zipCode" minLength="5" maxLength="5" value={this.state.zipCode} onChange={this.handleChange} />
+                      <input type="text" required className="form-control" placeholder="Zip Code" autoComplete="off" name="zipCode" minLength="5" maxLength="5" value={this.state.zipCode} onChange={this.handleNumberChange} />
                     </div>
                     <div className="col-3">
                       <label>Country</label>
@@ -145,14 +145,14 @@ class CheckoutForm extends React.Component {
 
                 <div className="form-group">
                   <label>Credit Card Number</label>
-                  <input type="text" required className="form-control" placeholder="Credit Card Number" autoComplete="off" name="creditCardNumber" minLength="16" maxLength="16" value={this.state.creditCardNumber} onChange={this.handleCreditCardChange} />
+                  <input type="text" required className="form-control" placeholder="Credit Card Number" autoComplete="off" name="creditCardNumber" minLength="16" maxLength="16" value={this.state.creditCardNumber} onChange={this.handleNumberChange} />
                 </div>
 
                 <div className="form-group">
                   <label>Expiration Date</label>
                   <div className = "row">
                     <div className="col-4"><input type="text" className="form-control" placeholder="MM/YY" autoComplete="off" name="monthYear" minLength="5" maxLength="5" value= {this.state.monthYear} onChange={this.handleMonthYearChange}/></div>
-                    <div className="col-4"><input type="text" className="form-control" placeholder="CVV" autoComplete="off" name="cvv" minLength="3" maxLength="3" value={this.state.cvv} onChange={this.handleChange}/></div>
+                    <div className="col-4"><input type="text" className="form-control" placeholder="CVV" autoComplete="off" name="cvv" minLength="3" maxLength="3" value={this.state.cvv} onChange={this.handleNumberChange}/></div>
                   </div>
                 </div>
 
