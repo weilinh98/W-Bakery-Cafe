@@ -17,6 +17,8 @@ class CheckoutForm extends React.Component {
       state: '',
       zipCode: '',
       Country: '',
+      expirationMY: '',
+      cvv: '',
       shippingAddress: ''
     };
     this.handleChange = this.handleChange.bind(this);
@@ -130,6 +132,14 @@ class CheckoutForm extends React.Component {
                 <div className="form-group">
                   <label>Credit Card Number</label>
                   <input type="text" required className="form-control" placeholder="Credit Card Number" autoComplete="off" name="creditCardNumber" minLength="16" maxLength="16" value={this.state.creditCardNumber} onChange={this.handleChange} />
+                </div>
+
+                <div className="form-group">
+                  <label>Expiration Date</label>
+                  <div className = "row">
+                    <div className="col-4"><input type="text" className="form-control" placeholder="MM/YY" autoComplete="off" name="expirationMY" minLength="5" maxLength="5" value= {this.expirationMY} onChange={this.handleChange}/></div>
+                    <div className="col-4"><input type="text" /></div>
+                  </div>
                 </div>
 
                 <div className="form-footer row">
