@@ -46,7 +46,13 @@ class CheckoutForm extends React.Component {
   }
 
   handleMonthYearChange(event) {
-
+    const property = event.target.name;
+    const value = event.target.value;
+    if (value.length === 1) {
+      this.setState(state => ({ [property]: value }));
+    } else if (value.length === 2) {
+      this.setState(state => ({ [property]: `${value}\\` }));
+    }
   }
 
   handleSubmit(event) {
