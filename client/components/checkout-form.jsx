@@ -52,6 +52,8 @@ class CheckoutForm extends React.Component {
       this.setState(state => ({ [property]: value }));
     } else if (value.length === 2) {
       this.setState(state => ({ [property]: `${value}\\` }));
+    } else if (value.length === 3 && parseInt(value.slice(-2))) {
+      this.setState(state => ({ [property]: value }));
     }
   }
 
