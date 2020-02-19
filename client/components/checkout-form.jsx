@@ -17,7 +17,7 @@ class CheckoutForm extends React.Component {
       state: '',
       zipCode: '',
       Country: '',
-      expirationMY: '',
+      monthYear: '',
       cvv: '',
       shippingAddress: ''
     };
@@ -137,8 +137,8 @@ class CheckoutForm extends React.Component {
                 <div className="form-group">
                   <label>Expiration Date</label>
                   <div className = "row">
-                    <div className="col-4"><input type="text" className="form-control" placeholder="MM/YY" autoComplete="off" name="expirationMY" minLength="5" maxLength="5" value= {this.expirationMY} onChange={this.handleChange}/></div>
-                    <div className="col-4"><input type="text" /></div>
+                    <div className="col-4"><input type="text" className="form-control" placeholder="MM/YY" autoComplete="off" name="monthYear" minLength="5" maxLength="5" value= {this.state.monthYear} onChange={this.handleChange}/></div>
+                    <div className="col-4"><input type="text" className="form-control" placeholder="CVV" autoComplete="off" name="cvv" minLength="3" maxLength="3" value={this.state.cvv} onChange={this.handleChange}/></div>
                   </div>
                 </div>
 
