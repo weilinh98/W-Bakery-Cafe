@@ -22,7 +22,8 @@ class CheckoutForm extends React.Component {
       shippingAddress: ''
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleMYChange = this.handleMYChange.bind(this);
+    this.handleMonthYearChange = this.handleMonthYearChange.bind(this);
+    this.handleCreditCardChange = this.handleCreditCardChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -36,11 +37,18 @@ class CheckoutForm extends React.Component {
     }
   }
 
-  handleMYChange(event){
+  handleCreditCardChange(event) {
     const property = event.target.name;
     const value = event.target.value;
-    this.setState(state=>({[property]: `${value}\`}))
+    if (parseInt(value.slice(-1)) || event.target.value === '') {
+      this.setState(state => ({ [property]: value }));
+    }
   }
+
+  handleMonthYearChange(event) {
+
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     if (!this.context.cart.length) {
@@ -137,13 +145,13 @@ class CheckoutForm extends React.Component {
 
                 <div className="form-group">
                   <label>Credit Card Number</label>
-                  <input type="text" required className="form-control" placeholder="Credit Card Number" autoComplete="off" name="creditCardNumber" minLength="16" maxLength="16" value={this.state.creditCardNumber} onChange={this.handleChange} />
+                  <input type="text" required className="form-control" placeholder="Credit Card Number" autoComplete="off" name="creditCardNumber" minLength="16" maxLength="16" value={this.state.creditCardNumber} onChange={this.handleCreditCardChange} />
                 </div>
 
                 <div className="form-group">
                   <label>Expiration Date</label>
                   <div className = "row">
-                    <div className="col-4"><input type="text" className="form-control" placeholder="MM/YY" autoComplete="off" name="monthYear" minLength="5" maxLength="5" value= {this.state.monthYear} onChange={this.handleMYChange}/></div>
+                    <div className="col-4"><input type="text" className="form-control" placeholder="MM/YY" autoComplete="off" name="monthYear" minLength="5" maxLength="5" value= {this.state.monthYear} onChange={this.handleMonthYearChange}/></div>
                     <div className="col-4"><input type="text" className="form-control" placeholder="CVV" autoComplete="off" name="cvv" minLength="3" maxLength="3" value={this.state.cvv} onChange={this.handleChange}/></div>
                   </div>
                 </div>
