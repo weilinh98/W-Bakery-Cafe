@@ -22,6 +22,7 @@ class CheckoutForm extends React.Component {
       shippingAddress: ''
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleMYChange = this.handleMYChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -35,6 +36,11 @@ class CheckoutForm extends React.Component {
     }
   }
 
+  handleMYChange(event){
+    const property = event.target.name;
+    const value = event.target.value;
+    this.setState(state=>({[property]: `${value}\`}))
+  }
   handleSubmit(event) {
     event.preventDefault();
     if (!this.context.cart.length) {
@@ -137,7 +143,7 @@ class CheckoutForm extends React.Component {
                 <div className="form-group">
                   <label>Expiration Date</label>
                   <div className = "row">
-                    <div className="col-4"><input type="text" className="form-control" placeholder="MM/YY" autoComplete="off" name="monthYear" minLength="5" maxLength="5" value= {this.state.monthYear} onChange={this.handleChange}/></div>
+                    <div className="col-4"><input type="text" className="form-control" placeholder="MM/YY" autoComplete="off" name="monthYear" minLength="5" maxLength="5" value= {this.state.monthYear} onChange={this.handleMYChange}/></div>
                     <div className="col-4"><input type="text" className="form-control" placeholder="CVV" autoComplete="off" name="cvv" minLength="3" maxLength="3" value={this.state.cvv} onChange={this.handleChange}/></div>
                   </div>
                 </div>
