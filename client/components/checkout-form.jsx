@@ -17,12 +17,13 @@ class CheckoutForm extends React.Component {
       state: '',
       zipCode: '',
       Country: '',
-      monthYear: '',
+      MM: new Date().getMonth() + 1,
+      YY: new Date().getFullYear(),
       cvv: '',
       shippingAddress: ''
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleMonthYearChange = this.handleMonthYearChange.bind(this);
+    this.handleMYChange = this.handleMYChange.bind(this);
     this.handleNumberChange = this.handleNumberChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -45,16 +46,50 @@ class CheckoutForm extends React.Component {
     }
   }
 
-  handleMonthYearChange(event) {
+  handleMYChange(event) {
     const property = event.target.name;
     const value = event.target.value;
-    if (value.length === 1) {
-      this.setState(state => ({ [property]: value }));
-    } else if (value.length === 2) {
-      this.setState(state => ({ [property]: `${value}\\` }));
-    } else if (value.length === 3 && parseInt(value.slice(-2))) {
-      this.setState(state => ({ [property]: value }));
+    this.setState(state => ({ [property]: value }));
+  }
+
+  getMonthSelect() {
+    const array = [];
+    let option;
+    const date = new Date();
+    const currentYear = date.getFullYear();
+    const currentMonth = date.getMonth() + 1;
+    if (this.state.YY === currentYear) {
+      for (let i = currentMonth; i < 13; i++) {
+        if (i.toString().length !== 1) {
+          option = <option value={i} key={i}>{i}</option>;
+        } else {
+          option = <option value={i} key={i}>{`0${i}`}</option>;
+        }
+        array.push(option);
+      }
+    } else {
+      for (let i = 1; i < 13; i++) {
+        if (i.toString().length !== 1) {
+          option = <option value = {i} key={i}>{i}</option>;
+        } else {
+          option = <option value = {i} key={i}>{`0${i}`}</option>;
+        }
+        array.push(option);
+      }
     }
+    return array;
+  }
+
+  getYearSelect() {
+    const array = [];
+    let option;
+    const date = new Date();
+    const currentYear = date.getFullYear();
+    for (let i = currentYear; i < currentYear + 50; i++) {
+      option = <option value = {i} key={i}>{i}</option>;
+      array.push(option);
+    }
+    return array;
   }
 
   handleSubmit(event) {
@@ -158,8 +193,13 @@ class CheckoutForm extends React.Component {
 
                 <div className="form-group">
                   <label>Expiration Date</label>
-                  <div className = "row">
-                    <div className="col-4"><input type="text" className="form-control" placeholder="MM/YY" autoComplete="off" name="monthYear" minLength="5" maxLength="5" value= {this.state.monthYear} onChange={this.handleMonthYearChange}/></div>
+                  <div className = "row col-10">
+                    <select name="MM" value={this.state.MM} onChange={this.handleMYChange}>
+                      {this.getMonthSelect()}
+                    </select>
+                    <select name="YY" value={this.state.YY} onChange={this.handleMYChange}>
+                      {this.getYearSelect()}
+                    </select>
                     <div className="col-4"><input type="text" className="form-control" placeholder="CVV" autoComplete="off" name="cvv" minLength="3" maxLength="3" value={this.state.cvv} onChange={this.handleNumberChange}/></div>
                   </div>
                 </div>
