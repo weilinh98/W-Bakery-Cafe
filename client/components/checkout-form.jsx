@@ -16,7 +16,7 @@ class CheckoutForm extends React.Component {
       city: '',
       state: '',
       zipCode: '',
-      country: '',
+      country: 'US',
       mm: new Date().getMonth() + 1,
       yy: new Date().getFullYear(),
       cvv: '',
@@ -169,7 +169,7 @@ class CheckoutForm extends React.Component {
                     </div>
                     <div className="col-3">
                       <label>Country</label>
-                      <input type="text" required className="form-control" placeholder="Country" autoComplete="off" name="country" value="US" onChange={this.handleChange} />
+                      <input type="text" required className="form-control" placeholder="Country" autoComplete="off" name="country" value="US"/>
                     </div>
                   </div>
                 </div>

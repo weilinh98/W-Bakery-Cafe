@@ -193,11 +193,12 @@ app.post('/api/orders', (req, res, next) => {
     const { firstName, lastName, emailAddress, phoneNumber, nameOnCard, creditCardNumber, city, state, zipCode, country, mm, yy, cvv, shippingAddress } = req.body;
     if (firstName && lastName && emailAddress && phoneNumber && nameOnCard && creditCardNumber && city && state && zipCode && country && mm && yy && cvv && shippingAddress) {
       const sql = `
-        insert into "orders" ("firstName", "lastName", "emailAddress", "phoneNumber", "nameOnCard", "creditCardNumer", "city", "state", "zipCode", "country", "mm", "yy", "cvv", "shippingAddress", "cartId")
+        insert into "orders" ("firstName", "lastName", "emailAddress", "phoneNumber", "nameOnCard", "creditCardNumber", "city", "state", "zipCode", "country", "mm", "yy", "cvv", "shippingAddress", "cartId")
         values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
           returning *
           `;
       const params = [firstName, lastName, emailAddress, phoneNumber, nameOnCard, creditCardNumber, city, state, zipCode, country, mm, yy, cvv, shippingAddress, req.session.cartId];
+      console.log(params);
       db.query(sql, params)
         .then(response => {
           if (response.rows.length !== 0) {

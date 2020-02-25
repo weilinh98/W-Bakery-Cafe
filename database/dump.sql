@@ -278,9 +278,10 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) F
 298	59	8	699	1
 300	61	8	699	1
 302	63	8	699	1
-304	64	7	799	1
 289	55	7	799	7
 291	57	13	799	5
+304	64	7	799	1
+306	65	8	699	1
 296	58	9	799	5
 221	19	2	2595	\N
 223	19	4	999	\N
@@ -312,6 +313,7 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) F
 299	60	10	699	999999
 301	62	8	699	1
 303	63	8	699	\N
+305	63	7	799	1
 \.
 
 
@@ -384,6 +386,7 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 62	2020-02-24 17:34:37.489589+00
 63	2020-02-25 19:38:14.47529+00
 64	2020-02-25 20:29:28.134995+00
+65	2020-02-25 23:02:12.116165+00
 \.
 
 
@@ -414,6 +417,7 @@ COPY public.orders ("orderId", "cartId", "shippingAddress", "createdAt", "firstN
 24	42	bdjwdmw	2020-02-11 20:54:05.544127+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
 25	43	bhjdwhdkw\n\n	2020-02-11 20:54:47.354431+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
 26	58	     	2020-02-18 20:09:49.567904+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+27	65	201 Great Lawn	2020-02-25 23:02:42.998153+00	Weilin	Hong	weilinhong007@gmail.com	5205858005	weeffe	Irvine	CA	13131	US	131	1213111111111111	2	2020
 \.
 
 
@@ -437,21 +441,21 @@ COPY public.products ("productId", name, price, image, "shortDescription", "long
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 304, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 306, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 64, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 65, true);
 
 
 --
 -- Name: orders_orderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."orders_orderId_seq"', 26, true);
+SELECT pg_catalog.setval('public."orders_orderId_seq"', 27, true);
 
 
 --
