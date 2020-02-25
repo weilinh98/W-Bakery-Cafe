@@ -62,7 +62,6 @@ app.get('/api/cart', (req, res, next) => {
   } else {
     const sql = `
     select "c"."cartItemId",
-            "c"."quantity",
             "c"."price",
             "p"."productId",
             "p"."image",
@@ -82,8 +81,6 @@ app.get('/api/cart', (req, res, next) => {
 
 app.post('/api/cart', (req, res, next) => {
   const productId = parseInt(req.body.productId);
-  const quantity = parseInt(req.body.quantity);
-  const condition = req.body.condition;
   if (Number.isInteger(productId) && productId > 0) {
     const sql = `
       select "price"
@@ -110,52 +107,21 @@ app.post('/api/cart', (req, res, next) => {
               const cartWithPrice = {};
               cartWithPrice.price = response.rows[0].price;
               cartWithPrice.newCartId = result.rows[0].cartId;
-              req.session.cartId = cartWithPrice.newCartId;
               return cartWithPrice;
             });
         }
       })
       .then(response => {
-        const cartWithPrice = response;
+        req.session.cartId = response.newCartId;
         const sql = `
-          select *
-            from "cartItems"
-            where "cartId" = $1 and "productId" = $2`;
-        const params = [cartWithPrice.newCartId, productId];
-
-        return db.query(sql, params)
-          .then(response => {
-            const existingProduct = response.rows[0];
-            if (!response.rows.length) {
-              const sql = `
-          insert into "cartItems" ("cartId", "productId", "price", "quantity")
-          values ($1, $2, $3, $4)
+          insert into "cartItems" ("cartId", "productId", "price")
+          values ($1, $2, $3)
           returning "cartItemId"`;
-              const params = [cartWithPrice.newCartId, productId, cartWithPrice.price, quantity];
-              return db.query(sql, params)
-                .then(result => {
-                  const cartItemId = result.rows[0].cartItemId;
-                  return cartItemId;
-                });
-            } else {
-              const sql = `
-              update "cartItems"
-                set "quantity" = $1
-                where "cartId" = $2 and "productId" = $3
-                returning "cartItemId"`;
-              let newQuantity = null;
-              if (condition === 'add') {
-                newQuantity = existingProduct.quantity + 1;
-              } else {
-                newQuantity = quantity;
-              }
-              const params = [newQuantity, cartWithPrice.newCartId, productId];
-              return db.query(sql, params)
-                .then(result => {
-                  const cartItemId = result.rows[0].cartItemId;
-                  return cartItemId;
-                });
-            }
+        const params = [response.newCartId, productId, response.price];
+        return db.query(sql, params)
+          .then(result => {
+            const cartItemId = result.rows[0].cartItemId;
+            return cartItemId;
           });
       })
       .then(response => {
@@ -163,7 +129,6 @@ app.post('/api/cart', (req, res, next) => {
         const sql = `
         select "c"."cartItemId",
                 "c"."price",
-                "c"."quantity",
                 "p"."productId",
                 "p"."image",
                 "p"."name",
@@ -186,68 +151,25 @@ app.post('/api/orders', (req, res, next) => {
   if (!req.session.cartId) {
     next(new ClientError('Cannot find your cart to place order', 400));
   } else {
-    const info = req.body;
-    if (info.name && info.creditCardNumber && info.shippingAddress) {
-      if (isNaN(info.creditCardNumber)) {
-        next(new ClientError('Please enter valid credit card number', 400));
-      } else {
-        const sql = `
-        insert into "orders" ("name", "cartId", "creditCard", "shippingAddress")
-        values($1, $2, $3, $4)
+    const { firstName, lastName, emailAddress, phoneNumber, nameOnCard, creditCardNumber, city, state, zipCode, country, mm, yy, cvv, shippingAddress } = req.body;
+    if (firstName && lastName && emailAddress && phoneNumber && nameOnCard && creditCardNumber && city && state && zipCode && country && mm && yy && cvv && shippingAddress) {
+      const sql = `
+        insert into "orders" ("firstName", "lastName", "emailAddress", "phoneNumber", "nameOnCard", "creditCardNumer", "city", "state", "zipCode", "country", "mm", "yy", "cvv", "shippingAddress", "cartId")
+        values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)
           returning *
           `;
-        const params = [info.name, req.session.cartId, info.creditCardNumber, info.shippingAddress];
-        db.query(sql, params)
-          .then(response => {
-            if (response.rows.length !== 0) {
-              delete req.session.cartId;
-              res.json(response.rows[0]);
-            }
-          })
-          .catch(err => { next(err); });
-      }
-    } else {
-      next(new ClientError('Please Enter Full Name, Credit Card and Shipping Address to Proceed', 400));
-    }
-  }
-});
-
-app.delete('/api/cart', (req, res, next) => {
-  const { productId, cartItemId } = req.body.deleteInformation;
-  const cartId = req.session.cartId;
-  if (Number.isInteger(productId) && productId > 0) {
-    if (!cartId) {
-      next(new ClientError("Something went wrong, can't find your cart to process the delete", 400));
-    } else {
-      const sql = `
-      select "price"
-        from "products"
-        where "productId" = $1`;
-      const params = [productId];
+      const params = [firstName, lastName, emailAddress, phoneNumber, nameOnCard, creditCardNumber, city, state, zipCode, country, mm, yy, cvv, shippingAddress, req.session.cartId];
       db.query(sql, params)
         .then(response => {
-          if (!response.rows.length) {
-            throw new ClientError(`Cannot Find Product with productId ${productId}`, 400);
-          } else {
-            const sql = `
-                delete
-                  from "cartItems"
-                  where "cartId" = $1 and "cartItemId" = $2 and "productId" = $3
-                  returning *`;
-            const params = [cartId, cartItemId, productId];
-            return db.query(sql, params)
-              .then(response => {
-                if (response.rows.length === 0) {
-                  throw new ClientError('Cannot find matching cartItem to delete, cartItem with supplied information are not  in the database', 404);
-                } else {
-                  res.sendStatus(204);
-                }
-              });
+          if (response.rows.length !== 0) {
+            delete req.session.cartId;
+            res.json(response.rows[0]);
           }
         })
         .catch(err => { next(err); });
+    } else {
+      next(new ClientError('Please Enter Full Information to Proceed', 400));
     }
-
   }
 });
 

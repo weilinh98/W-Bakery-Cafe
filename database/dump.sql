@@ -136,7 +136,6 @@ ALTER SEQUENCE public."carts_cartId_seq" OWNED BY public.carts."cartId";
 CREATE TABLE public.orders (
     "orderId" integer NOT NULL,
     "cartId" integer NOT NULL,
-    "creditCard" text NOT NULL,
     "shippingAddress" text NOT NULL,
     "createdAt" timestamp(6) with time zone DEFAULT now() NOT NULL,
     "firstName" text,
@@ -148,9 +147,10 @@ CREATE TABLE public.orders (
     state character(2),
     "zipCode" character(5),
     country character(2),
-    "YY" character(4),
     cvv character(3),
-    "MM" character varying(2)
+    "creditCardNumber" character(16),
+    mm character varying(2),
+    yy character(4)
 );
 
 
@@ -277,6 +277,7 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) F
 297	58	11	799	1
 298	59	8	699	1
 300	61	8	699	1
+302	63	8	699	1
 289	55	7	799	7
 291	57	13	799	5
 296	58	9	799	5
@@ -309,6 +310,7 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) F
 290	56	8	699	1
 299	60	10	699	999999
 301	62	8	699	1
+303	63	8	699	\N
 \.
 
 
@@ -379,6 +381,7 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 60	2020-02-20 02:32:09.10908+00
 61	2020-02-20 18:47:37.959703+00
 62	2020-02-24 17:34:37.489589+00
+63	2020-02-25 19:38:14.47529+00
 \.
 
 
@@ -386,29 +389,29 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 -- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.orders ("orderId", "cartId", "creditCard", "shippingAddress", "createdAt", "firstName", "lastName", "emailAddress", "phoneNumber", "nameOnCard", city, state, "zipCode", country, "YY", cvv, "MM") FROM stdin;
-1	20	2382744892	1200 Tyndall Ave	2020-01-15 23:23:52.015145+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-2	20	2382744892	1200 Tyndall Ave	2020-01-15 23:29:45.865713+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-3	20	2382744892	1200 Tyndall Ave	2020-01-15 23:30:29.307702+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-4	20	2382744892	1200 Tyndall Ave	2020-01-15 23:32:09.367677+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-5	21	2382744892	1200 Tyndall Ave	2020-01-15 23:58:08.765126+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-10	22	8967578	fhgjk	2020-01-16 19:08:44.019288+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-11	23	243253	gdjwdhh street	2020-01-16 19:10:39.103569+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-12	24	1234567	hwdjwh street	2020-01-16 19:12:12.624606+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-13	29	wrrwr	wee	2020-02-08 00:53:05.145695+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-14	30	888888888888	99 Sweet st.	2020-02-08 01:31:23.591043+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-15	32	890	jeklq	2020-02-08 01:34:12.059977+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-16	33	27849	hwjfjkwf	2020-02-08 01:43:37.101925+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-17	34	163789	hdiwj	2020-02-08 01:46:34.753531+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-18	35	123	hjk	2020-02-08 01:51:43.246372+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-19	37	567890	dfghjk	2020-02-08 01:58:18.027206+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-20	38	456789	xcvbnm	2020-02-08 08:40:36.349456+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-21	38	345678	hjkm	2020-02-08 08:43:22.965522+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-22	38	56789	fghj	2020-02-08 08:44:23.87092+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-23	42	2442	fefe	2020-02-11 20:51:04.030065+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-24	42	67890	bdjwdmw	2020-02-11 20:54:05.544127+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-25	43	627890	bhjdwhdkw\n\n	2020-02-11 20:54:47.354431+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
-26	58	  	     	2020-02-18 20:09:49.567904+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+COPY public.orders ("orderId", "cartId", "shippingAddress", "createdAt", "firstName", "lastName", "emailAddress", "phoneNumber", "nameOnCard", city, state, "zipCode", country, cvv, "creditCardNumber", mm, yy) FROM stdin;
+1	20	1200 Tyndall Ave	2020-01-15 23:23:52.015145+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+2	20	1200 Tyndall Ave	2020-01-15 23:29:45.865713+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+3	20	1200 Tyndall Ave	2020-01-15 23:30:29.307702+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+4	20	1200 Tyndall Ave	2020-01-15 23:32:09.367677+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+5	21	1200 Tyndall Ave	2020-01-15 23:58:08.765126+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+10	22	fhgjk	2020-01-16 19:08:44.019288+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+11	23	gdjwdhh street	2020-01-16 19:10:39.103569+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+12	24	hwdjwh street	2020-01-16 19:12:12.624606+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+13	29	wee	2020-02-08 00:53:05.145695+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+14	30	99 Sweet st.	2020-02-08 01:31:23.591043+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+15	32	jeklq	2020-02-08 01:34:12.059977+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+16	33	hwjfjkwf	2020-02-08 01:43:37.101925+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+17	34	hdiwj	2020-02-08 01:46:34.753531+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+18	35	hjk	2020-02-08 01:51:43.246372+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+19	37	dfghjk	2020-02-08 01:58:18.027206+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+20	38	xcvbnm	2020-02-08 08:40:36.349456+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+21	38	hjkm	2020-02-08 08:43:22.965522+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+22	38	fghj	2020-02-08 08:44:23.87092+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+23	42	fefe	2020-02-11 20:51:04.030065+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+24	42	bdjwdmw	2020-02-11 20:54:05.544127+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+25	43	bhjdwhdkw\n\n	2020-02-11 20:54:47.354431+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+26	58	     	2020-02-18 20:09:49.567904+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
 \.
 
 
@@ -432,14 +435,14 @@ COPY public.products ("productId", name, price, image, "shortDescription", "long
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 301, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 303, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 62, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 63, true);
 
 
 --
