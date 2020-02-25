@@ -32,8 +32,12 @@ class CheckoutForm extends React.Component {
     const value = event.target.value;
     if (property === 'state') {
       this.setState(state => ({ [property]: value.toUpperCase() }));
-    } else if (property === 'city' || property === 'state' || property === 'firstName' || property === 'lastName' || property === 'nameOnCard') {
+    } else if (property === 'city' || property === 'state' || property === 'firstName' || property === 'lastName') {
       if (isNaN(value.slice(-1)) || event.target.value === '') {
+        this.setState(state => ({ [property]: value }));
+      }
+    } else if (property === 'nameOnCard') {
+      if (isNaN(value.slice(-1)) || value.slice(-1) === ' ' || event.target.value === '') {
         this.setState(state => ({ [property]: value }));
       }
     } else {
