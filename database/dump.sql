@@ -74,7 +74,8 @@ CREATE TABLE public."cartItems" (
     "cartItemId" integer NOT NULL,
     "cartId" integer NOT NULL,
     "productId" integer NOT NULL,
-    price integer NOT NULL
+    price integer NOT NULL,
+    quantity integer
 );
 
 
@@ -135,10 +136,21 @@ ALTER SEQUENCE public."carts_cartId_seq" OWNED BY public.carts."cartId";
 CREATE TABLE public.orders (
     "orderId" integer NOT NULL,
     "cartId" integer NOT NULL,
-    name text NOT NULL,
     "creditCard" text NOT NULL,
     "shippingAddress" text NOT NULL,
-    "createdAt" timestamp(6) with time zone DEFAULT now() NOT NULL
+    "createdAt" timestamp(6) with time zone DEFAULT now() NOT NULL,
+    "firstName" text,
+    "lastName" text,
+    "emailAddress" character varying(255),
+    "phoneNumber" character(10),
+    "nameOnCard" text,
+    city character varying(50),
+    state character(2),
+    "zipCode" character(5),
+    country character(2),
+    "YY" character(4),
+    cvv character(3),
+    "MM" character varying(2)
 );
 
 
@@ -228,53 +240,75 @@ ALTER TABLE ONLY public.products ALTER COLUMN "productId" SET DEFAULT nextval('p
 -- Data for Name: cartItems; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public."cartItems" ("cartItemId", "cartId", "productId", price) FROM stdin;
-1	15	2	2595
-2	16	2	2595
-3	17	2	2595
-4	18	2	2595
-5	18	2	2595
-6	18	2	2595
-7	18	3	2900
-8	18	2	2595
-9	18	2	2595
-220	19	1	2999
-222	19	3	2900
-224	20	3	2900
-226	20	3	2900
-228	20	3	2900
-230	20	3	2900
-232	21	4	999
-234	23	2	2595
-236	25	3	2900
-239	27	3	2900
-242	29	7	799
-245	30	8	699
-247	30	7	799
-249	33	7	799
-251	35	7	799
-253	36	7	799
-255	37	7	799
-270	42	8	699
-272	43	8	699
-221	19	2	2595
-223	19	4	999
-225	20	3	2900
-227	20	3	2900
-229	20	3	2900
-231	20	3	2900
-233	22	2	2595
-235	24	2	2595
-237	25	4	999
-238	26	2	2595
-241	29	8	699
-243	29	9	799
-246	31	8	699
-248	32	7	799
-250	34	7	799
-252	36	7	799
-254	36	7	799
-256	38	8	699
+COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) FROM stdin;
+2	16	2	2595	\N
+3	17	2	2595	\N
+4	18	2	2595	\N
+5	18	2	2595	\N
+6	18	2	2595	\N
+7	18	3	2900	\N
+8	18	2	2595	\N
+9	18	2	2595	\N
+220	19	1	2999	\N
+222	19	3	2900	\N
+224	20	3	2900	\N
+226	20	3	2900	\N
+228	20	3	2900	\N
+230	20	3	2900	\N
+232	21	4	999	\N
+234	23	2	2595	\N
+236	25	3	2900	\N
+239	27	3	2900	\N
+242	29	7	799	\N
+245	30	8	699	\N
+247	30	7	799	\N
+249	33	7	799	\N
+251	35	7	799	\N
+253	36	7	799	\N
+255	37	7	799	\N
+293	57	8	699	3
+270	42	8	699	\N
+272	43	8	699	\N
+1	15	2	2595	3
+281	49	7	799	1
+283	51	7	799	1
+285	53	7	799	1
+294	58	8	699	5
+297	58	11	799	1
+298	59	8	699	1
+300	61	8	699	1
+289	55	7	799	7
+291	57	13	799	5
+296	58	9	799	5
+221	19	2	2595	\N
+223	19	4	999	\N
+225	20	3	2900	\N
+227	20	3	2900	\N
+229	20	3	2900	\N
+231	20	3	2900	\N
+233	22	2	2595	\N
+235	24	2	2595	\N
+237	25	4	999	\N
+238	26	2	2595	\N
+241	29	8	699	\N
+243	29	9	799	\N
+246	31	8	699	\N
+248	32	7	799	\N
+250	34	7	799	\N
+252	36	7	799	\N
+254	36	7	799	\N
+256	38	8	699	\N
+295	58	14	1099	34
+273	12	2	3	\N
+274	12	2	3	\N
+275	23	29	9009	\N
+282	50	7	799	1
+284	52	7	799	1
+292	57	7	799	7
+286	54	7	799	1
+290	56	8	699	1
+299	60	10	699	999999
+301	62	8	699	1
 \.
 
 
@@ -326,6 +360,25 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 41	2020-02-10 21:45:40.209158+00
 42	2020-02-11 18:37:27.322535+00
 43	2020-02-11 20:54:36.887415+00
+44	2020-02-12 21:05:20.209287+00
+45	2020-02-12 21:06:54.754477+00
+46	2020-02-12 21:08:07.729557+00
+47	2020-02-12 21:08:49.759467+00
+48	2020-02-12 21:10:57.643212+00
+49	2020-02-12 21:11:39.734956+00
+50	2020-02-12 21:21:20.168952+00
+51	2020-02-12 21:21:33.636127+00
+52	2020-02-12 21:21:59.802603+00
+53	2020-02-12 21:24:03.093746+00
+54	2020-02-12 21:24:15.158352+00
+55	2020-02-12 21:28:15.012818+00
+56	2020-02-13 19:45:44.276101+00
+57	2020-02-14 23:14:22.1049+00
+58	2020-02-18 20:02:18.363282+00
+59	2020-02-19 18:47:15.525351+00
+60	2020-02-20 02:32:09.10908+00
+61	2020-02-20 18:47:37.959703+00
+62	2020-02-24 17:34:37.489589+00
 \.
 
 
@@ -333,28 +386,29 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 -- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.orders ("orderId", "cartId", name, "creditCard", "shippingAddress", "createdAt") FROM stdin;
-1	20	tony	2382744892	1200 Tyndall Ave	2020-01-15 23:23:52.015145+00
-2	20	tony	2382744892	1200 Tyndall Ave	2020-01-15 23:29:45.865713+00
-3	20	tony	2382744892	1200 Tyndall Ave	2020-01-15 23:30:29.307702+00
-4	20	tony	2382744892	1200 Tyndall Ave	2020-01-15 23:32:09.367677+00
-5	21	tony	2382744892	1200 Tyndall Ave	2020-01-15 23:58:08.765126+00
-10	22	oikh	8967578	fhgjk	2020-01-16 19:08:44.019288+00
-11	23	harry	243253	gdjwdhh street	2020-01-16 19:10:39.103569+00
-12	24	wweiw	1234567	hwdjwh street	2020-01-16 19:12:12.624606+00
-13	29	we	wrrwr	wee	2020-02-08 00:53:05.145695+00
-14	30	Weilin	888888888888	99 Sweet st.	2020-02-08 01:31:23.591043+00
-15	32	wueh	890	jeklq	2020-02-08 01:34:12.059977+00
-16	33	Weilin	27849	hwjfjkwf	2020-02-08 01:43:37.101925+00
-17	34	weilin	163789	hdiwj	2020-02-08 01:46:34.753531+00
-18	35	weilin	123	hjk	2020-02-08 01:51:43.246372+00
-19	37	weilin hong	567890	dfghjk	2020-02-08 01:58:18.027206+00
-20	38	fghj	456789	xcvbnm	2020-02-08 08:40:36.349456+00
-21	38	ghj	345678	hjkm	2020-02-08 08:43:22.965522+00
-22	38	fghj	56789	fghj	2020-02-08 08:44:23.87092+00
-23	42	Weilin	2442	fefe	2020-02-11 20:51:04.030065+00
-24	42	Weilin	67890	bdjwdmw	2020-02-11 20:54:05.544127+00
-25	43	rdrgsgyq	627890	bhjdwhdkw\n\n	2020-02-11 20:54:47.354431+00
+COPY public.orders ("orderId", "cartId", "creditCard", "shippingAddress", "createdAt", "firstName", "lastName", "emailAddress", "phoneNumber", "nameOnCard", city, state, "zipCode", country, "YY", cvv, "MM") FROM stdin;
+1	20	2382744892	1200 Tyndall Ave	2020-01-15 23:23:52.015145+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+2	20	2382744892	1200 Tyndall Ave	2020-01-15 23:29:45.865713+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+3	20	2382744892	1200 Tyndall Ave	2020-01-15 23:30:29.307702+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+4	20	2382744892	1200 Tyndall Ave	2020-01-15 23:32:09.367677+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+5	21	2382744892	1200 Tyndall Ave	2020-01-15 23:58:08.765126+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+10	22	8967578	fhgjk	2020-01-16 19:08:44.019288+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+11	23	243253	gdjwdhh street	2020-01-16 19:10:39.103569+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+12	24	1234567	hwdjwh street	2020-01-16 19:12:12.624606+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+13	29	wrrwr	wee	2020-02-08 00:53:05.145695+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+14	30	888888888888	99 Sweet st.	2020-02-08 01:31:23.591043+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+15	32	890	jeklq	2020-02-08 01:34:12.059977+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+16	33	27849	hwjfjkwf	2020-02-08 01:43:37.101925+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+17	34	163789	hdiwj	2020-02-08 01:46:34.753531+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+18	35	123	hjk	2020-02-08 01:51:43.246372+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+19	37	567890	dfghjk	2020-02-08 01:58:18.027206+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+20	38	456789	xcvbnm	2020-02-08 08:40:36.349456+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+21	38	345678	hjkm	2020-02-08 08:43:22.965522+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+22	38	56789	fghj	2020-02-08 08:44:23.87092+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+23	42	2442	fefe	2020-02-11 20:51:04.030065+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+24	42	67890	bdjwdmw	2020-02-11 20:54:05.544127+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+25	43	627890	bhjdwhdkw\n\n	2020-02-11 20:54:47.354431+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
+26	58	  	     	2020-02-18 20:09:49.567904+00	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N	\N
 \.
 
 
@@ -378,21 +432,21 @@ COPY public.products ("productId", name, price, image, "shortDescription", "long
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 272, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 301, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 43, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 62, true);
 
 
 --
 -- Name: orders_orderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."orders_orderId_seq"', 25, true);
+SELECT pg_catalog.setval('public."orders_orderId_seq"', 26, true);
 
 
 --
