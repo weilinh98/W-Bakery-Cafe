@@ -48,7 +48,7 @@ class CheckoutForm extends React.Component {
   handleNumberChange(event) {
     const property = event.target.name;
     const value = event.target.value;
-    if (parseInt(value.slice(-1)) || event.target.value === '') {
+    if (parseInt(value.slice(-1)) || parseInt(value.slice(-1)) === 0 || event.target.value === '') {
       this.setState(state => ({ [property]: value }));
     }
   }

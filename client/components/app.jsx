@@ -83,7 +83,8 @@ export default class App extends React.Component {
       .then(response => response.json())
       .then(data => {
         if (!data.error) {
-          this.setState({ cart: [], confirmationDetail: data });
+          console.log(data);
+          this.setState(state => ({ cart: [], confirmationDetail: data }));
         } else {
           Swal.fire(data.error);
         }
