@@ -199,13 +199,34 @@ app.post('/api/orders', (req, res, next) => {
           returning *
           `;
       const params = [firstName, lastName, emailAddress, phoneNumber, nameOnCard, creditCardNumber, city, state, zipCode, country, mm, yy, cvv, shippingAddress, req.session.cartId];
-      console.log(params);
       db.query(sql, params)
         .then(response => {
           if (response.rows.length !== 0) {
-            delete req.session.cartId;
-            res.json(response.rows[0]);
+            const userInfo = response.rows[0];
+            return userInfo;
           }
+        })
+        .then(userInfo => {
+          const sql = `
+    select "c"."cartItemId",
+            "c"."price",
+            "c"."quantity",
+            "p"."productId",
+            "p"."image",
+            "p"."name",
+            "p"."shortDescription"
+    from "cartItems" as "c"
+    join "products" as "p" using ("productId")
+    where "c"."cartId" = $1`;
+          const params = [req.session.cartId];
+          return db.query(sql, params)
+            .then(response => {
+              const cartItems = response.rows[0];
+              const clientCartAndInfo = { cartItems, userInfo };
+              console.log(clientCartAndInfo);
+              delete req.session.cartId;
+              res.json(clientCartAndInfo);
+            });
         })
         .catch(err => { next(err); });
     } else {

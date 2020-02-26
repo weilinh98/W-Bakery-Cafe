@@ -6,11 +6,13 @@ class OrderConfirmation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      paidCartItems: {}
     };
   }
 
   render() {
-    const { orderId, shippingAddress, firstName, lastName, emailAddress, phoneNumber, city, state, zipCode, country } = this.context.confirmationDetail;
+    const { orderId, shippingAddress, firstName, lastName, emailAddress, phoneNumber, city, state, zipCode, country } = this.context.confirmationDetail.userInfo;
+    console.log(this.context.confirmationDetail);
     return (
       <React.Fragment>
         <Title/>
@@ -19,8 +21,12 @@ class OrderConfirmation extends React.Component {
           Thank You For Your Order! {firstName} !
           </div>
           <div className="shipping-info-container">
-            <div className="shipping-info-title">Shipping Information:</div>
+            <div className="shipping-info-title">Your Order Information:</div>
+            <p>Order Number: {orderId}</p>
             <p>Name: {`${firstName} ${lastName}`}</p>
+            <p>Phone Number: {phoneNumber}</p>
+            <p>Email Address: {emailAddress} </p>
+            <p>Shipping Adreess: {shippingAddress}, {city}, {state}, {zipCode}, {country}</p>
           </div>
         </div>
       </React.Fragment>
