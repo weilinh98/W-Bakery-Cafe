@@ -272,6 +272,13 @@ img.card-img-top{
   font-weight: bold;
 }
 
+.confirmation-container{
+  display: flex;
+  width: 70%;
+  justify-content: center;
+  background-color: rgb(223, 60, 160, 0.2);
+}
+
 /* button effect */
 @keyframes hvr-pulse {
   25% {

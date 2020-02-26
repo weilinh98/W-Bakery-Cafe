@@ -9,12 +9,14 @@ import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
+import OrderConfirmation from './order-confirmation';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cart: []
+      cart: [],
+      confirmationDetail: {}
     };
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
@@ -81,7 +83,7 @@ export default class App extends React.Component {
       .then(response => response.json())
       .then(data => {
         if (!data.error) {
-          this.setState({ cart: [] });
+          this.setState({ cart: [], confirmationDetail: data });
         } else {
           Swal.fire(data.error);
         }
@@ -96,6 +98,7 @@ export default class App extends React.Component {
 
     const context = {
       cart: this.state.cart,
+      confirmationDetail: this.state.confirmationDetail,
       addToCart: this.addToCart,
       placeOrder: this.placeOrder,
       updateCart: this.updateCart
@@ -108,6 +111,7 @@ export default class App extends React.Component {
             <Route path="/product-detail/:productid" component={ProductDetails} />
             <Route exact path="/cart" component={CartSummary} />
             <Route exact path="/checkout" component={CheckoutForm} />
+            <Route exact path="/order-confirmation" component={OrderConfirmation} />
           </Router>
         </div>
       </AppContext.Provider>
