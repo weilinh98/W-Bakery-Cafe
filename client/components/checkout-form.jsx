@@ -99,7 +99,7 @@ class CheckoutForm extends React.Component {
       Swal.fire("You can't check out with nothing in your cart! ");
     } else {
       this.context.placeOrder(this.state);
-      this.props.history.push('/');
+      this.props.history.push('/order-confirmation');
     }
   }
 
@@ -173,7 +173,7 @@ class CheckoutForm extends React.Component {
                     </div>
                     <div className="col-3">
                       <label>Country</label>
-                      <input type="text" required className="form-control" placeholder="Country" autoComplete="off" name="country" value="US"/>
+                      <input type="text" required className="form-control" placeholder="Country" autoComplete="off" name="country" value="US" readOnly/>
                     </div>
                   </div>
                 </div>
