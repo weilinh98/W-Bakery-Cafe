@@ -119,7 +119,7 @@ class CheckoutForm extends React.Component {
               <p>{`Item Total: $${(total / 100).toFixed(2)}`}</p>
             </div>
 
-            <div className="col-8 shipping-info-conatiner">
+            <div className="col-8 shipping-info-container">
               <form onSubmit={this.handleSubmit}>
 
                 <div className="form-group">
@@ -164,7 +164,7 @@ class CheckoutForm extends React.Component {
                       <input type="text" required className="form-control" placeholder="State" autoComplete="off" name="state" minLength="2" maxLength="2" value={this.state.state} onChange={this.handleChange} />
                     </div>
                     <div className="col-3">
-                      <label>Zip Code</label>
+                      <label>Zip</label>
                       <input type="text" required className="form-control" placeholder="Zip Code" autoComplete="off" name="zipCode" minLength="5" maxLength="5" value={this.state.zipCode} onChange={this.handleNumberChange} />
                     </div>
                     <div className="col-3">
@@ -197,12 +197,12 @@ class CheckoutForm extends React.Component {
                     <select name="yy" value={this.state.yy} onChange={this.handleChange}>
                       {this.getYearSelect()}
                     </select>
-                    <div className="col-4"><input type="text" className="form-control" placeholder="CVV" autoComplete="off" name="cvv" minLength="3" maxLength="3" value={this.state.cvv} onChange={this.handleNumberChange}/></div>
+                    <div className="col-6"><input type="text" className="form-control" placeholder="CVV" autoComplete="off" name="cvv" minLength="3" maxLength="3" value={this.state.cvv} onChange={this.handleNumberChange}/></div>
                   </div>
                 </div>
 
                 <div className="form-footer row">
-                  <p className="col-8" onClick={() => { this.context.placeOrder(this.state); }}>{'< Continue Shopping'} </p>
+                  <p className="col-8" onClick={() => { this.props.history.push('/'); }}>{'< Continue Shopping'} </p>
                   <button type="submit" className="place-order-button col4">
                 Place Order
                   </button>

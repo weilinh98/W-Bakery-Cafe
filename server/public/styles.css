@@ -245,6 +245,7 @@ img.card-img-top{
   display: flex;
   width: 70%;
   font-size: 2.5rem;
+  justify-content: center;
 }
 
 .form-container{
@@ -259,6 +260,11 @@ img.card-img-top{
   background-color: rgb(223, 60, 160, 0.2);
   padding: 4%;
   border-radius: 3px
+}
+
+
+.checkout-container .total-price{
+  text-align: center;
 }
 
 .form-subtitle{
@@ -437,6 +443,14 @@ img.card-img-top{
     width: 15vh;
     margin-left: 7px;
 }
+    .check-out-box{
+      flex-direction: column;
+      padding: 0;
+    }
+    .order-summary, .shipping-info-container{
+      max-width: 100%;
+    }
+
 }
 
 /* iPhone 6/7/8 landscape */
