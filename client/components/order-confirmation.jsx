@@ -11,8 +11,8 @@ class OrderConfirmation extends React.Component {
   }
 
   render() {
-    const { orderId, shippingAddress, firstName, lastName, emailAddress, phoneNumber, city, state, zipCode, country } = this.context.confirmationDetail.userInfo;
     console.log(this.context.confirmationDetail);
+    const { orderId, shippingAddress, firstName, lastName, emailAddress, phoneNumber, city, state, zipCode, country } = this.context.confirmationDetail.userInfo;
     return (
       <React.Fragment>
         <Title/>
