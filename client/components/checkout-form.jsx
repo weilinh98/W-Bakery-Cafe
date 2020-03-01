@@ -25,6 +25,7 @@ class CheckoutForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleNumberChange = this.handleNumberChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.pushToConfirmation = this.pushToConfirmation.bind(this);
   }
 
   handleChange(event) {
@@ -98,9 +99,12 @@ class CheckoutForm extends React.Component {
     if (!this.context.cart.length) {
       Swal.fire("You can't check out with nothing in your cart! ");
     } else {
-      this.context.placeOrder(this.state);
-      this.props.history.push('/order-confirmation');
+      this.context.placeOrder(this.state, this.pushToConfirmation);
     }
+  }
+
+  pushToConfirmation() {
+    this.props.history.push('/order-confirmation');
   }
 
   render() {

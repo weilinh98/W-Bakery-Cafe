@@ -221,9 +221,8 @@ app.post('/api/orders', (req, res, next) => {
           const params = [req.session.cartId];
           return db.query(sql, params)
             .then(response => {
-              const cartItems = response.rows[0];
+              const cartItems = response.rows;
               const clientCartAndInfo = { cartItems, userInfo };
-              console.log(clientCartAndInfo);
               delete req.session.cartId;
               res.json(clientCartAndInfo);
             });

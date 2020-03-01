@@ -279,6 +279,13 @@ img.card-img-top{
   background-color: rgb(223, 60, 160, 0.2);
 }
 
+.confirmation-back-button{
+  cursor: pointer;
+  background-color: salmon;
+  border-radius: 10px;
+  font-family: Cookie, cursive;
+}
+
 /* button effect */
 @keyframes hvr-pulse {
   25% {
