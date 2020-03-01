@@ -73,7 +73,7 @@ export default class App extends React.Component {
       });
   }
 
-  placeOrder(information) {
+  placeOrder(information, callback) {
     const init = {
       method: 'POST',
       body: JSON.stringify(information),
@@ -83,8 +83,7 @@ export default class App extends React.Component {
       .then(response => response.json())
       .then(data => {
         if (!data.error) {
-          console.log(data);
-          this.setState(state => ({ cart: [], confirmationDetail: data }));
+          this.setState(({ cart: [], confirmationDetail: data }), callback);
         } else {
           Swal.fire(data.error);
         }
