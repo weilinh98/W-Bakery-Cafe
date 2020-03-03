@@ -72,7 +72,7 @@ class CheckoutForm extends React.Component {
   isEmailValid() {
     if (!this.state.isEmailValid) {
       return (
-        <p className="text-warning">
+        <p className="text-danger">
           Your Email is not Valid
         </p>
       );
@@ -203,6 +203,7 @@ class CheckoutForm extends React.Component {
                   <div className="col-6">
                     <label>Email Address</label>
                     <input type="text" required className="form-control" placeholder="Email Address" autoComplete="off" name="emailAddress" minLength="6" maxLength="254" value={this.state.emailAddress} onChange={this.handleChange} onBlur={this.checkEmail}/>
+                    {this.isEmailValid()}
                   </div>
                   <div className="col-6">
                     <label>Phone Number</label>
@@ -226,7 +227,6 @@ class CheckoutForm extends React.Component {
                       <select name="state" value={this.state.state} onChange={this.handleChange} className="state-select">
                         {this.getStateSelect()}
                       </select>
-                      {this.isEmailValid()}
                     </div>
                     <div className="col-3">
                       <label>Zip</label>
