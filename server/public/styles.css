@@ -287,7 +287,9 @@ img.card-img-top{
 }
 
 .state-select{
-  height: 40%;
+  height: 55%;
+  width: 90%;
+  margin-right: 5px;
 }
 
 /* button effect */
