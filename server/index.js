@@ -234,6 +234,22 @@ app.post('/api/orders', (req, res, next) => {
   }
 });
 
+app.delete('/api/item', (req, res, next) => {
+  if (!req.session.cartId) {
+    next(new ClientError('Cannot find your cart to delete Item', 400));
+  } else {
+    const { cartItemId } = req.body;
+    const sql = `
+      delete from "cartItems"
+      where "cartItemId" = $1`;
+    const params = [cartItemId];
+    db.query(sql, params)
+      .then(response => {
+        res.sendStatus(204);
+      })
+      .catch(err => { next(err); });
+  }
+});
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
