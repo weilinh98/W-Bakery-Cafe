@@ -48,12 +48,7 @@ class CartSummaryItem extends React.Component {
       confirmButtonText: 'Yes, remove it!'
     }).then(result => {
       if (result.value) {
-        Swal.fire(
-          'Deleted!',
-          'Item has been removed from your cart!',
-          'success'
-        );
-        this.props.delete(deleteInfo);
+        this.context.deleteItem(deleteInfo);
       }
     });
   }

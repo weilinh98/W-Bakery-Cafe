@@ -20,7 +20,7 @@ export default class App extends React.Component {
     };
     this.addToCart = this.addToCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
-    this.updateCart = this.updateCart.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
   componentDidMount() {
@@ -90,8 +90,28 @@ export default class App extends React.Component {
       });
   }
 
-  updateCart(newCart) {
-    this.setState({ cart: newCart });
+  deleteItem(deleteInfo) {
+    const init = {
+      method: 'DELETE',
+      body: JSON.stringify(deleteInfo),
+      headers: { 'Content-Type': 'application/json' }
+    };
+    fetch('api/item', init)
+      .then(data => {
+        if (data.status === 204) {
+          Swal.fire(
+            'Deleted!',
+            'Item has been removed from your cart!',
+            'success'
+          );
+          const index = this.state.cart.findIndex(element => element.cartItemId === deleteInfo.cartItemId);
+          const newCart = [...this.state.cart];
+          newCart.splice(index, 1);
+          this.setState(({ cart: newCart }));
+        } else {
+          Swal.fire(data.error);
+        }
+      });
   }
 
   render() {
@@ -101,7 +121,7 @@ export default class App extends React.Component {
       confirmationDetail: this.state.confirmationDetail,
       addToCart: this.addToCart,
       placeOrder: this.placeOrder,
-      updateCart: this.updateCart
+      deleteItem: this.deleteItem
     };
     return (
       <AppContext.Provider value={context}>
