@@ -20,25 +20,30 @@ class CheckoutForm extends React.Component {
       mm: new Date().getMonth() + 1,
       yy: new Date().getFullYear(),
       cvv: '',
-      shippingAddress: ''
+      shippingAddress: '',
+      isEmailValid: true
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleNumberChange = this.handleNumberChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.checkEmail = this.checkEmail.bind(this);
     this.pushToConfirmation = this.pushToConfirmation.bind(this);
   }
 
   handleChange(event) {
     const property = event.target.name;
     const value = event.target.value;
-    if (property === 'state') {
-      this.setState(state => ({ [property]: value.toUpperCase() }));
-    } else if (property === 'city' || property === 'state' || property === 'firstName' || property === 'lastName') {
-      if (isNaN(value.slice(-1)) || event.target.value === '') {
+    const letters = 'abcdefghijklmnopqrstuvwxyz';
+    if (property === 'firstName' || property === 'lastName') {
+      if (letters.indexOf(event.target.value.slice(-1).toLowerCase()) !== -1 || event.target.value === '') {
         this.setState(state => ({ [property]: value }));
       }
-    } else if (property === 'nameOnCard') {
-      if (isNaN(value.slice(-1)) || value.slice(-1) === ' ' || event.target.value === '') {
+    } else if (property === 'nameOnCard' || property === 'city') {
+      if (event.target.value.slice(-1) === ' ' || letters.indexOf(event.target.value.slice(-1).toLowerCase()) !== -1 || event.target.value === '') {
+        this.setState(state => ({ [property]: value }));
+      }
+    } else if (property === 'emailAddress') {
+      if (event.target.value.slice(-1) !== ' ' || event.target.value === '') {
         this.setState(state => ({ [property]: value }));
       }
     } else {
@@ -51,6 +56,28 @@ class CheckoutForm extends React.Component {
     const value = event.target.value;
     if (parseInt(value.slice(-1)) || parseInt(value.slice(-1)) === 0 || event.target.value === '') {
       this.setState(state => ({ [property]: value }));
+    }
+  }
+
+  checkEmail() {
+    const re = /\S+@\S+\.\S+/;
+    const emailTextLength = this.state.emailAddress.length;
+    if (!re.test(this.state.emailAddress) || emailTextLength < 6) {
+      this.setState({ isEmailValid: false });
+    } else {
+      this.setState({ isEmailValid: true });
+    }
+  }
+
+  isEmailValid() {
+    if (!this.state.isEmailValid) {
+      return (
+        <p className="text-warning">
+          Your Email is not Valid
+        </p>
+      );
+    } else {
+      return null;
     }
   }
 
@@ -94,12 +121,39 @@ class CheckoutForm extends React.Component {
     return array;
   }
 
+  getStateSelect() {
+    const array = [];
+    const states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+    let option;
+    for (let i = 0; i < states.length; i++) {
+      option = <option value={states[i]} key={i}>{states[i]}</option>;
+      array.push(option);
+    }
+    return array;
+  }
+
   handleSubmit(event) {
     event.preventDefault();
     if (!this.context.cart.length) {
       Swal.fire("You can't check out with nothing in your cart! ");
     } else {
-      this.context.placeOrder(this.state, this.pushToConfirmation);
+      const info = {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        emailAddress: this.state.emailAddress,
+        phoneNumber: this.state.phoneNumber,
+        nameOnCard: this.state.nameOnCard,
+        creditCardNumber: this.state.creditCardNumber,
+        city: this.state.city,
+        state: this.state.state,
+        zipCode: this.state.zipCode,
+        country: 'US',
+        mm: this.state.mm,
+        yy: this.state.yy,
+        cvv: this.state.cvv,
+        shippingAddress: this.state.shippingAddress
+      };
+      this.context.placeOrder(info, this.pushToConfirmation);
     }
   }
 
@@ -148,7 +202,7 @@ class CheckoutForm extends React.Component {
                 <div className="form-group row">
                   <div className="col-6">
                     <label>Email Address</label>
-                    <input type="text" required className="form-control" placeholder="Email Address" autoComplete="off" name="emailAddress" minLength="6" maxLength="254" value={this.state.emailAddress} onChange={this.handleChange}/>
+                    <input type="text" required className="form-control" placeholder="Email Address" autoComplete="off" name="emailAddress" minLength="6" maxLength="254" value={this.state.emailAddress} onChange={this.handleChange} onBlur={this.checkEmail}/>
                   </div>
                   <div className="col-6">
                     <label>Phone Number</label>
@@ -169,7 +223,10 @@ class CheckoutForm extends React.Component {
                     </div>
                     <div className="col-3">
                       <label>State</label>
-                      <input type="text" required className="form-control" placeholder="State" autoComplete="off" name="state" minLength="2" maxLength="2" value={this.state.state} onChange={this.handleChange} />
+                      <select name="state" value={this.state.state} onChange={this.handleChange} className="state-select">
+                        {this.getStateSelect()}
+                      </select>
+                      {this.isEmailValid()}
                     </div>
                     <div className="col-3">
                       <label>Zip</label>

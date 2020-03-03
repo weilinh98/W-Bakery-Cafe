@@ -286,6 +286,10 @@ img.card-img-top{
   font-family: Cookie, cursive;
 }
 
+.state-select{
+  height: 40%;
+}
+
 /* button effect */
 @keyframes hvr-pulse {
   25% {

@@ -32,7 +32,7 @@ class OrderConfirmation extends React.Component {
             <p>Name: {`${firstName} ${lastName}`}</p>
             <p>Phone Number: {phoneNumber}</p>
             <p>Email Address: {emailAddress} </p>
-            <p>Shipping Adreess: {shippingAddress}, {city}, {state}, {zipCode}, {country}</p>
+            <p>Shipping Address: {shippingAddress}, {city}, {state}, {zipCode}, {country}</p>
           </div>
         </div>
         <button className="confirmation-back-button font-weight-bold mt-2 text-center"onClick={() => { this.props.history.push('/'); }}>{'Back to Catalog'} </button>
