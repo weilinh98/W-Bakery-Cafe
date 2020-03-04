@@ -137,23 +137,27 @@ class CheckoutForm extends React.Component {
     if (!this.context.cart.length) {
       Swal.fire("You can't check out with nothing in your cart! ");
     } else {
-      const info = {
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        emailAddress: this.state.emailAddress,
-        phoneNumber: this.state.phoneNumber,
-        nameOnCard: this.state.nameOnCard,
-        creditCardNumber: this.state.creditCardNumber,
-        city: this.state.city,
-        state: this.state.state,
-        zipCode: this.state.zipCode,
-        country: 'US',
-        mm: this.state.mm,
-        yy: this.state.yy,
-        cvv: this.state.cvv,
-        shippingAddress: this.state.shippingAddress
-      };
-      this.context.placeOrder(info, this.pushToConfirmation);
+      if (this.state.isEmailValid) {
+        const info = {
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
+          emailAddress: this.state.emailAddress,
+          phoneNumber: this.state.phoneNumber,
+          nameOnCard: this.state.nameOnCard,
+          creditCardNumber: this.state.creditCardNumber,
+          city: this.state.city,
+          state: this.state.state,
+          zipCode: this.state.zipCode,
+          country: 'US',
+          mm: this.state.mm,
+          yy: this.state.yy,
+          cvv: this.state.cvv,
+          shippingAddress: this.state.shippingAddress
+        };
+        this.context.placeOrder(info, this.pushToConfirmation);
+      } else {
+        Swal.fire('Please enter the fields with valid information  ');
+      }
     }
   }
 
