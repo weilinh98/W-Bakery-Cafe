@@ -144,7 +144,7 @@ CREATE TABLE public.orders (
     "phoneNumber" character(10),
     "nameOnCard" text,
     city character varying(50),
-    state character(2),
+    state text,
     "zipCode" character(5),
     country character(2),
     cvv character(3),
@@ -241,7 +241,6 @@ ALTER TABLE ONLY public.products ALTER COLUMN "productId" SET DEFAULT nextval('p
 --
 
 COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) FROM stdin;
-2	16	2	2595	\N
 3	17	2	2595	\N
 4	18	2	2595	\N
 5	18	2	2595	\N
@@ -311,6 +310,7 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) F
 357	113	8	699	1
 359	115	7	799	1
 361	117	7	799	1
+398	151	9	799	1
 221	19	2	2595	\N
 223	19	4	999	\N
 225	20	3	2900	\N
@@ -369,6 +369,9 @@ COPY public."cartItems" ("cartItemId", "cartId", "productId", price, quantity) F
 356	112	8	699	1
 358	114	8	699	1
 360	116	7	799	1
+362	117	9	799	1
+397	118	9	799	1
+399	152	9	799	1
 \.
 
 
@@ -494,6 +497,9 @@ COPY public.carts ("cartId", "createdAt") FROM stdin;
 115	2020-03-01 21:45:21.169248+00
 116	2020-03-01 21:46:39.551895+00
 117	2020-03-01 21:47:15.503619+00
+118	2020-03-03 17:12:24.230934+00
+151	2020-03-04 18:39:53.443433+00
+152	2020-03-04 20:36:09.117469+00
 \.
 
 
@@ -577,6 +583,8 @@ COPY public.orders ("orderId", "cartId", "shippingAddress", "createdAt", "firstN
 77	114	201 Great Lawn	2020-03-01 21:44:30.143831+00	Weilin	Hong	weilinhong007@gmail.com	5205858005	wwwwwwwwwwwww	Irvine	CA	92620	US	222	2222222222222222	3	2020
 78	115	201 Great Lawn	2020-03-01 21:45:34.650342+00	Weilin	Hong	weilinhong007@gmail.com	5205858005	wwwwwwwwww	Irvine	CA	92620	US	222	2222222222222222	3	2020
 79	116	201 Great Lawn	2020-03-01 21:46:51.544376+00	Weilin	Hong	weilinhong007@gmail.com	5205858005	wwwwwwwww	Irvine	CA	92620	US	222	2222222222222222	3	2020
+80	117	201 Great Lawn	2020-03-01 22:17:57.813071+00	Weilin	Hong	weilinhong007@gmail.com	5205858005	wwwwwwwwww	Irvine	CA	92620	US	233	2222222222222222	3	2020
+81	151	201 Great Lawn	2020-03-04 20:36:01.58647+00	Weilin	Hong	weilinhong007@gmail.com	5205858005	wwwwwww	Irvine	California	92620	US	222	2222222222222222	3	2020
 \.
 
 
@@ -600,21 +608,21 @@ COPY public.products ("productId", name, price, image, "shortDescription", "long
 -- Name: cartItems_cartItemId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 361, true);
+SELECT pg_catalog.setval('public."cartItems_cartItemId_seq"', 399, true);
 
 
 --
 -- Name: carts_cartId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."carts_cartId_seq"', 117, true);
+SELECT pg_catalog.setval('public."carts_cartId_seq"', 152, true);
 
 
 --
 -- Name: orders_orderId_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public."orders_orderId_seq"', 79, true);
+SELECT pg_catalog.setval('public."orders_orderId_seq"', 81, true);
 
 
 --
