@@ -14,7 +14,7 @@ class CheckoutForm extends React.Component {
       nameOnCard: '',
       creditCardNumber: '',
       city: '',
-      state: '',
+      state: 'Alabama',
       zipCode: '',
       country: 'US',
       mm: new Date().getMonth() + 1,
