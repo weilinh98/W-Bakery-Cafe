@@ -199,7 +199,7 @@ class CheckoutForm extends React.Component {
                   </div>
                   <div className="col-6">
                     <label>Last Name</label>
-                    <input type="text" required className="form-control" placeholder="First Name" autoComplete="off" name="lastName" minLength="2" maxLength="32" value={this.state.lastName} onChange={this.handleChange}/>
+                    <input type="text" required className="form-control" placeholder="Last Name" autoComplete="off" name="lastName" minLength="2" maxLength="32" value={this.state.lastName} onChange={this.handleChange}/>
                   </div>
                 </div>
 
